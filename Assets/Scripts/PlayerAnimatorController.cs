@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel.Design.Serialization;
+using Photon.Pun;
 using UnityEngine;
 
-public class PlayerAnimatorController : MonoBehaviour
+public class PlayerAnimatorController : MonoBehaviourPun
 {
     Animator animator;
     int iswalkinghash;
@@ -31,13 +33,16 @@ public class PlayerAnimatorController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!photonView.IsMine)
+        {
+            return;
+        }
         bool forwardsPressed = Input.GetKey(KeyCode.W);
-        bool runningPressed = Input.GetKey("left shift");
-        bool leftPressed = Input.GetKey("a");
-        bool rightPressed = Input.GetKey("d");
-        bool backPressed = Input.GetKey("s");
+        bool runningPressed = Input.GetKey(KeyCode.LeftShift);
+        bool leftPressed = Input.GetKey(KeyCode.A);
+        bool rightPressed = Input.GetKey(KeyCode.D);
+        bool backPressed = Input.GetKey(KeyCode.S);
         bool crouchPressed = Input.GetKey(KeyCode.LeftControl);
-
 
         if (forwardsPressed)
         {
@@ -53,6 +58,7 @@ public class PlayerAnimatorController : MonoBehaviour
         if (forwardsPressed && runningPressed)
         {
             animator.SetBool(iswalkinghash, false);
+            animator.SetBool(iscrouchwalkinghash, false);
             animator.SetBool(isrunninghash, true);
         }
  
@@ -86,17 +92,18 @@ public class PlayerAnimatorController : MonoBehaviour
 
         if (crouchPressed)
         {
-            animator.SetBool(iscrouchidlehash, true);
             if (forwardsPressed)
             {
+                animator.SetBool(iswalkinghash, false);
+                animator.SetBool(iscrouchidlehash, false);
                 animator.SetBool(iscrouchwalkinghash, true);
+            } else {
+                animator.SetBool(iscrouchidlehash, true);
             }
         }
         if (!crouchPressed)
         {
             animator.SetBool(iscrouchidlehash, false);
         }
-
- 
     }
 }
