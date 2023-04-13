@@ -44,14 +44,16 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private bool m_Jumping;
         private AudioSource m_AudioSource;
 
- 
-
         // Use this for initialization
         private void Start()
         {
-            if (photonView.IsMine)
-            {
-                gameObject.AddComponent<AudioListener>();
+            
+            if (photonView.IsMine) {
+                GetComponentInChildren<Camera>().enabled = true;
+            } else {
+                GetComponentInChildren<Camera>().enabled = false;
+                GetComponentInChildren<AudioListener>().enabled = false;
+                Destroy(this);
             }
             m_CharacterController = GetComponent<CharacterController>();
             m_Camera = Camera.main;

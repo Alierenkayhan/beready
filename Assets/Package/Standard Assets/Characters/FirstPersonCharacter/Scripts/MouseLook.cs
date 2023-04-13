@@ -28,8 +28,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
         }
 
 
-        public void LookRotation(Transform character, Transform camera)
-        {
+        public void LookRotation(Transform character, Transform camera) {
+            if (!m_cursorIsLocked) return; //Do not rotate camera when escape is pressed
             float yRot = CrossPlatformInputManager.GetAxis("Mouse X") * XSensitivity;
             float xRot = CrossPlatformInputManager.GetAxis("Mouse Y") * YSensitivity;
 
