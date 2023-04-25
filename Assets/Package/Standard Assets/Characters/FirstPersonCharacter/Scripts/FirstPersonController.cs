@@ -49,10 +49,9 @@ namespace UnityStandardAssets.Characters.FirstPerson
         {
             
             if (photonView.IsMine) {
-                GetComponentInChildren<Camera>().enabled = true;
+                //transform.GetChild(1).gameObject.SetActive(false);
             } else {
-                GetComponentInChildren<Camera>().enabled = false;
-                GetComponentInChildren<AudioListener>().enabled = false;
+                //GetComponentInChildren<Camera>().enabled = false;
                 Destroy(this);
             }
             m_CharacterController = GetComponent<CharacterController>();
