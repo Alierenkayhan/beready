@@ -37,7 +37,7 @@ public class ElevatorScript : MonoBehaviour
 
     private void Update() {
         if (switching) {
-            if (open) {
+            if (!open) {
                 canSwitch = false;
                 if (t0 < 1f) {
                     t0 += Time.deltaTime;
