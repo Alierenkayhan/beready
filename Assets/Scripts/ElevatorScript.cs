@@ -1,10 +1,12 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using ExitGames.Client.Photon;
+using Photon.Pun;
+using Photon.Realtime;
 using UnityEngine;
 
-public class ElevatorScript : MonoBehaviour
-{
+public class ElevatorScript : MonoBehaviourPunCallbacks, IOnEventCallback {
     public GameObject Door1;
     private Vector3 Door1Scale;
     private Vector3 Door1ScaleShort;
@@ -14,6 +16,9 @@ public class ElevatorScript : MonoBehaviour
     private bool open = false;
     private bool canSwitch = true;
     private bool switching = false;
+    
+    public const byte DoorOpenEventCode = 1;
+    public const byte DoorCloseEventCode = 2;
     
     private float t0 = 0f;
     private float targetTime = 1f;
@@ -27,10 +32,14 @@ public class ElevatorScript : MonoBehaviour
 
     private void OnTriggerStay(Collider other) {
         if (Input.GetKeyUp(KeyCode.Mouse0)) {
-            print("Intercepted");
             if (canSwitch) {
-                print("Switching!");
-                switching = true;
+                object[] content = new object[] { gameObject.GetInstanceID() }; // Array contains the target position and the IDs of the selected units
+                RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.All }; // You would have to set the Receivers to All in order to receive this event on the local client as well
+                if (open) {
+                    PhotonNetwork.RaiseEvent(DoorCloseEventCode, content, raiseEventOptions, SendOptions.SendReliable);
+                } else {
+                    PhotonNetwork.RaiseEvent(DoorOpenEventCode, content, raiseEventOptions, SendOptions.SendReliable);
+                }
             }
         }
     }
@@ -62,6 +71,33 @@ public class ElevatorScript : MonoBehaviour
                     open = !open;
                 }
             }
+        }
+    }
+
+    private void OpenDoor() {
+        open = false;
+        switching = true;
+    }
+    
+    private void CloseDoor() {
+        open = true;
+        switching = true;
+    }
+
+    public void OnEvent(EventData photonEvent) {
+        try {
+            object[] data = (object[])photonEvent.CustomData;
+            var objID = (int)data[0];
+
+            if (gameObject.GetInstanceID() == objID) {
+                if (photonEvent.Code == DoorOpenEventCode) {
+                    OpenDoor();
+                } else if (photonEvent.Code == DoorCloseEventCode) {
+                    CloseDoor();
+                }
+            }
+        } catch (NullReferenceException) {
+            
         }
     }
 }
