@@ -4,17 +4,27 @@ using UnityEngine;
 
 public class door : MonoBehaviour
 {
-    Animation doors;
+    Animator doors;
+    private bool open = false;
+    private bool canSwitch = true;
 
     private void Start()
     {
-        doors = this.GetComponent<Animation>();
+        doors = this.GetComponent<Animator>();
     }
-    private void OnTriggerEnter(Collider other)
-    {
-        if (Input.GetKeyDown(KeyCode.Mouse0))
-        {
-            doors.enabled = !doors.enabled;
+    private void OnTriggerStay(Collider other) {
+        if (Input.GetKeyUp(KeyCode.Mouse0)) {
+            if (canSwitch) {
+                doors.SetTrigger(open ? "CloseDoor" : "OpenDoor");
+                open = !open;
+                StartCoroutine(InputIgnoreCoroutine());
+            }
         }
+    }
+
+    IEnumerator InputIgnoreCoroutine() {
+        canSwitch = false;
+        yield return new WaitForSecondsRealtime(1.5f);
+        canSwitch = true;
     }
 }
