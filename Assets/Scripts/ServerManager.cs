@@ -7,6 +7,9 @@ using UnityEngine;
 public class ServerManager : MonoBehaviourPunCallbacks
 {
     // Start is called before the first frame update
+    public float xvalue;
+    public float yvalue;
+    public float zvalue;
     void Start()
     {
         PhotonNetwork.ConnectUsingSettings();
@@ -31,7 +34,8 @@ public class ServerManager : MonoBehaviourPunCallbacks
         base .OnJoinedRoom();
         Debug.Log("Odaya bağlanıldı");
         Debug.Log("Karakter oluşturuluyor...");
-        PhotonNetwork.Instantiate("Kemal", new Vector3(35.261f, 2.633f, 6.858f), Quaternion.identity, 0, null);
+        PhotonNetwork.Instantiate("Kemal", new Vector3(xvalue, yvalue, zvalue), Quaternion.identity, 0, null);
+        //PhotonNetwork.Instantiate("Kemal", new Vector3(35.261f, 2.633f, 6.858f), Quaternion.identity, 0, null);
     }
 
 }
