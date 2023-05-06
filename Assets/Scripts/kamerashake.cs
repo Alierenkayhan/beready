@@ -17,29 +17,18 @@ public class kamerashake : MonoBehaviour
 
     void Start()
     {
-        
         StartCoroutine(ExampleCoroutine());
     }
 
-    void Update()
+    void LateUpdate()
     {
-        _cam = gameObject.transform;
+        _cam = transform.GetChild(0);
         _startPos = _cam.localPosition;
         _initialDuration = _shakeDuration;
 
         if (_isShake)
         {
-            if (_shakePowerinit != _shakePower)
-            {
-                _cam.localPosition = _startPos + Random.insideUnitSphere * _shakePowerinit;
-                _shakePowerinit += _downAmount * Time.deltaTime;
-            }
-            //else
-            //{
-            //    _isShake = false;
-            //    _cam.localPosition = _startPos;
-            //    _shakeDuration = _initialDuration;
-            //}
+            _cam.localPosition = _startPos + Random.insideUnitSphere * _shakePowerinit;
         }
     }
 
@@ -48,7 +37,35 @@ public class kamerashake : MonoBehaviour
         //yield on a new YieldInstruction that waits for 5 seconds.
         yield return new WaitForSeconds(timer);
         _isShake = true;
+        StartCoroutine(IncreaseIntensity(_shakeDuration / 2, _shakePower));
+        yield return new WaitForSeconds(_shakeDuration/2);
+        yield return new WaitForSeconds(_shakeDuration);
+        StartCoroutine(DecreaseIntensity(_shakeDuration / 2, _shakePower));
+        yield return new WaitForSeconds(_shakeDuration/2);
+        _isShake = false;
 
+    }
+
+    IEnumerator IncreaseIntensity(float time, float upper) {
+        float deltaTime = 0f;
+
+        while (deltaTime < time) {
+            deltaTime += Time.deltaTime;
+            _shakePowerinit = Mathf.Lerp(0, upper, deltaTime / time);
+            yield return null;
+        }
+        yield return null;
+    }
+    
+    IEnumerator DecreaseIntensity(float time, float upper) {
+        float deltaTime = 0f;
+
+        while (deltaTime < time) {
+            deltaTime += Time.deltaTime;
+            _shakePowerinit = Mathf.Lerp(upper, 0, deltaTime / time);
+            yield return null;
+        }
+        yield return null;
     }
 
        

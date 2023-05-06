@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,15 +8,17 @@ public class exitgame : MonoBehaviour
 {
     [SerializeField] GameObject feedbackscreen;
     [SerializeField] GameObject exitscreen;
-    [SerializeField] GameObject camera;
+    [SerializeField] GameObject cam;
  
     private void Start()
     {
         exitscreen.SetActive(false);
         Time.timeScale = 1f;
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
-        GameObject.Find("Kemal(Clone)").GetComponentInChildren<kamerashake>().enabled = true;
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+        try {
+            GameObject.Find("Kemal(Clone)").GetComponentInChildren<kamerashake>().enabled = true;
+        } catch (NullReferenceException){}
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -23,7 +26,9 @@ public class exitgame : MonoBehaviour
         Time.timeScale = 0f;
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
-        GameObject.Find("Kemal(Clone)").GetComponentInChildren<kamerashake>().enabled = false;
+        try {
+            GameObject.Find("Kemal(Clone)").GetComponentInChildren<kamerashake>().enabled = true;
+        } catch (NullReferenceException){}
     }
     private void Update()
     {
@@ -32,7 +37,9 @@ public class exitgame : MonoBehaviour
             exitscreen.SetActive(true);
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
-            GameObject.Find("Kemal(Clone)").GetComponentInChildren<kamerashake>().enabled = false;
+            try {
+                GameObject.Find("Kemal(Clone)").GetComponentInChildren<kamerashake>().enabled = true;
+            } catch (NullReferenceException){}
         }
         if (Input.GetKeyDown(KeyCode.R))
         {
