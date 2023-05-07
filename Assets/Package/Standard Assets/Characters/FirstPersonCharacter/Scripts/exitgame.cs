@@ -27,19 +27,25 @@ public class exitgame : MonoBehaviour
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
         try {
-            GameObject.Find("Kemal(Clone)").GetComponentInChildren<kamerashake>().enabled = true;
+            GameObject.Find("Kemal(Clone)").GetComponentInChildren<kamerashake>().enabled = false;
         } catch (NullReferenceException){}
     }
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            exitscreen.SetActive(true);
-            Cursor.visible = true;
-            Cursor.lockState = CursorLockMode.None;
-            try {
-                GameObject.Find("Kemal(Clone)").GetComponentInChildren<kamerashake>().enabled = true;
-            } catch (NullReferenceException){}
+            if (exitscreen.activeSelf) {
+                exitscreen.SetActive(false);
+                Cursor.visible = false;
+                Cursor.lockState = CursorLockMode.Locked;
+            } else {
+                exitscreen.SetActive(true);
+                Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.None;
+                try {
+                    GameObject.Find("Kemal(Clone)").GetComponentInChildren<kamerashake>().enabled = true;
+                } catch (NullReferenceException){}
+            }
         }
         if (Input.GetKeyDown(KeyCode.R))
         {
@@ -57,6 +63,8 @@ public class exitgame : MonoBehaviour
     public void exitscreenclose()
     {
         exitscreen.SetActive(false);
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
     }
 }
 

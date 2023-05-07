@@ -43,7 +43,7 @@ public class kamerashake : MonoBehaviourPun
 
         if (_isShake)
         {
-            _cam.localPosition = _startPos + Random.insideUnitSphere * (_shakePowerinit * Time.timeScale);
+            _cam.localPosition = _startPos + Random.insideUnitSphere * _shakePowerinit;
         }
     }
 

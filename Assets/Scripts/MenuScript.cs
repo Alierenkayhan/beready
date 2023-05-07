@@ -11,6 +11,7 @@ public class MenuScript : MonoBehaviour {
     private int taggedObjects = 0;
 
     private void Start() {
+        GameManager.earthquakeRigidbodies.Clear();
         sliderElement = slider.GetComponent<Slider>();
         List<GameObject> allSceneGameObjects = GameManager.GetAllSceneGameObjects();
         foreach (var obj in allSceneGameObjects) {
