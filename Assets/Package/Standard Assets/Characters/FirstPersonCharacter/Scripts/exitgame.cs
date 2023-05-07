@@ -20,8 +20,8 @@ public class exitgame : MonoBehaviour
             GameObject.Find("Kemal(Clone)").GetComponentInChildren<kamerashake>().enabled = true;
         } catch (NullReferenceException){}
     }
-    private void OnTriggerEnter(Collider other)
-    {
+    private void OnTriggerEnter(Collider other) {
+        if (other.CompareTag("EarthquakeRigidbody")) return;
         feedbackscreen.SetActive(true);
         Time.timeScale = 0f;
         Cursor.visible = true;

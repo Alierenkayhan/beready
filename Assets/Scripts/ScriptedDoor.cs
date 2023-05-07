@@ -36,6 +36,7 @@ public class ScriptedDoor: MonoBehaviourPunCallbacks, IOnEventCallback {
     }
 
     private void OnTriggerStay(Collider other) {
+        if (other.CompareTag("EarthquakeRigidbody")) return;
         if (Input.GetKeyUp(KeyCode.Mouse0)) {
             if (canSwitch) {
                 object[] content = new object[] { transform.position }; // Array contains the target position and the IDs of the selected units

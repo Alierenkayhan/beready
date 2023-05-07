@@ -3,6 +3,7 @@ using Photon.Realtime;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityStandardAssets.Characters.FirstPerson;
 using WebSocketSharp;
 
@@ -41,15 +42,11 @@ public class ServerManager : MonoBehaviourPunCallbacks
     public override void OnConnectedToMaster()
     {
         base.OnConnectedToMaster();
-        Debug.Log("Servere bağlanıldı");
-        Debug.Log("Lobiye bağlanılıyor");
         PhotonNetwork.JoinLobby();
     }
     public override void OnJoinedLobby()
     {
         base.OnJoinedLobby();
-        Debug.Log("Lobiye bağlanıldı");
-        Debug.Log("Odaya bağlanılıyor");
         if (onlineRoomName.IsNullOrEmpty()) {
             onlineRoomName = "BOUNCET";
         }
@@ -64,13 +61,17 @@ public class ServerManager : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom() 
     {
         base .OnJoinedRoom();
-        Debug.Log("Odaya bağlanıldı");
-        Debug.Log("Karakter oluşturuluyor...");
         localPlayer = PhotonNetwork.Instantiate("Kemal", new Vector3(xvalue, yvalue, zvalue), Quaternion.identity, 0, null);
-        soundObject.SetActive(true);
-        StartCoroutine(StartSiren(8)); //Start the siren sound after 8s
+        StartCoroutine(GameStart(onlineRoomName.StartsWith("BRXOffline") ? 7 : 20)); //7 for SP, 20 for MP
         localPlayer.GetComponentInChildren<FirstPersonController>().m_MouseLook.SetCursorLock(true);
         //PhotonNetwork.Instantiate("Kemal", new Vector3(35.261f, 2.633f, 6.858f), Quaternion.identity, 0, null);
+    }
+
+    IEnumerator GameStart(float time) {
+        yield return new WaitForSeconds(time);
+        soundObject.SetActive(true);
+        GameManager.start = true;
+        StartCoroutine(StartSiren(8)); //Start the siren sound after 8s
     }
 
     IEnumerator StartSiren(float time) {

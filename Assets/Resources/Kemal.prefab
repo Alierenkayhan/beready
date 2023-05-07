@@ -312,9 +312,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _cam: {fileID: 6167822100453978438}
   _startPos: {x: 0, y: 0, z: 0}
-  _shakePower: 0.5
+  _shakePower: 0.43
   _shakePowerinit: 0
-  _shakeDuration: 10
+  _shakeDuration: 14
   _downAmount: 0.1
   _isShake: 0
   timer: 1

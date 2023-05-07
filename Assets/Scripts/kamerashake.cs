@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
 using UnityEngine;
 
-public class kamerashake : MonoBehaviour
+public class kamerashake : MonoBehaviourPun
 {
     [SerializeField] private Transform _cam;
     [SerializeField] private Vector3 _startPos;
@@ -14,15 +15,29 @@ public class kamerashake : MonoBehaviour
     [SerializeField] private float _downAmount;
     [SerializeField] private bool _isShake = false;
     [SerializeField] private int timer;
+    
+    private bool doOnce = false;
 
     void Start()
     {
-        StartCoroutine(ExampleCoroutine());
+        if (!photonView.IsMine) {
+            Destroy(this);
+            return;
+        }
     }
 
+    private void Update() {
+        if (GameManager.start) {
+            if (!doOnce) {
+                StartCoroutine(CameraShake());
+                doOnce = true;
+            }
+        }
+    }
+    
     void LateUpdate()
     {
-        _cam = transform.GetChild(0);
+        _cam = transform;
         _startPos = _cam.localPosition;
         _initialDuration = _shakeDuration;
 
@@ -32,7 +47,7 @@ public class kamerashake : MonoBehaviour
         }
     }
 
-    IEnumerator ExampleCoroutine()
+    IEnumerator CameraShake()
     {
         //yield on a new YieldInstruction that waits for 5 seconds.
         yield return new WaitForSeconds(timer);
