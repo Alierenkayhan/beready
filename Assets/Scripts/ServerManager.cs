@@ -16,6 +16,7 @@ public class ServerManager : MonoBehaviourPunCallbacks
 
     public GameObject soundObject;
     public GameObject localPlayer;
+    public static FirstPersonController localController;
 
     public string onlineRoomName = null;
     // void Start()
@@ -62,8 +63,9 @@ public class ServerManager : MonoBehaviourPunCallbacks
     {
         base .OnJoinedRoom();
         localPlayer = PhotonNetwork.Instantiate("Kemal", new Vector3(xvalue, yvalue, zvalue), Quaternion.identity, 0, null);
+        localController = localController.GetComponent<FirstPersonController>();
         StartCoroutine(GameStart(onlineRoomName.StartsWith("BRXOffline") ? 7 : 20)); //7 for SP, 20 for MP
-        localPlayer.GetComponentInChildren<FirstPersonController>().m_MouseLook.SetCursorLock(true);
+        localController.m_MouseLook.SetCursorLock(true);
         //PhotonNetwork.Instantiate("Kemal", new Vector3(35.261f, 2.633f, 6.858f), Quaternion.identity, 0, null);
     }
 
