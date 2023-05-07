@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityStandardAssets.Characters.FirstPerson;
-using WebSocketSharp;
 
 public class ServerManager : MonoBehaviourPunCallbacks
 {
@@ -25,7 +24,7 @@ public class ServerManager : MonoBehaviourPunCallbacks
     // }
 
     public void StartOnline() {
-        if (onlineRoomName.IsNullOrEmpty()) {
+        if (string.IsNullOrEmpty(onlineRoomName)) {
             onlineRoomName = null;
         }
         PhotonNetwork.ConnectUsingSettings();
@@ -48,7 +47,7 @@ public class ServerManager : MonoBehaviourPunCallbacks
     public override void OnJoinedLobby()
     {
         base.OnJoinedLobby();
-        if (onlineRoomName.IsNullOrEmpty()) {
+        if (string.IsNullOrEmpty(onlineRoomName)) {
             onlineRoomName = "BOUNCET";
         }
 
