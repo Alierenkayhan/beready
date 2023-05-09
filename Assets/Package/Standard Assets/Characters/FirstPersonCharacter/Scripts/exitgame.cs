@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
 using UnityEngine;
 using UnityEngine.SceneManagement;
  
@@ -54,10 +55,12 @@ public class exitgame : MonoBehaviour
     }
     public void RestartGame()
     {
+        PhotonNetwork.Disconnect();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
     public void ExitGame()
     {
+        PhotonNetwork.Disconnect();
         Application.Quit();
     }
     public void exitscreenclose()

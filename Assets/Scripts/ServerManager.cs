@@ -2,7 +2,9 @@
 using Photon.Realtime;
 using System.Collections;
 using System.Collections.Generic;
+using UI;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using UnityStandardAssets.Characters.FirstPerson;
 
@@ -18,10 +20,12 @@ public class ServerManager : MonoBehaviourPunCallbacks
     public static FirstPersonController localController;
 
     public string onlineRoomName = null;
-    // void Start()
-    // {
-    //     PhotonNetwork.ConnectUsingSettings();
-    // }
+
+    public UnityEvent startEvent;
+    void Start()
+    {
+        startEvent.AddListener(StartAfterAnnouncement);
+    }
 
     public void StartOnline() {
         if (string.IsNullOrEmpty(onlineRoomName)) {
@@ -63,9 +67,14 @@ public class ServerManager : MonoBehaviourPunCallbacks
         base .OnJoinedRoom();
         localPlayer = PhotonNetwork.Instantiate("Kemal", new Vector3(xvalue, yvalue, zvalue), Quaternion.identity, 0, null);
         localController = localPlayer.GetComponent<FirstPersonController>();
-        StartCoroutine(GameStart(onlineRoomName.StartsWith("BRXOffline") ? 7 : 20)); //7 for SP, 20 for MP
-        localController.m_MouseLook.SetCursorLock(true);
+        localController.m_MouseLook.SetCursorLock(false);
+        localPlayer.transform.GetChild(0).transform.GetChild(0).transform.GetComponentInChildren<AlertController>().alert("Dikkat!", "Hoşgeldin, biraz sonra bir deprem simülasyonuna katılacaksın, eğer bu deneyim konusunda endişeliysen oyundan ayrılabilirsin. Deprem anında yaşanacaklar bu oyundakinden daha farklı olabilir, amacımız deprem anında yaşanacak olası bir senaryoyu hissettirmek. Devam etmek istiyor musun?", "Devam et", "Ayrıl", startEvent);
         //PhotonNetwork.Instantiate("Kemal", new Vector3(35.261f, 2.633f, 6.858f), Quaternion.identity, 0, null);
+    }
+
+    public void StartAfterAnnouncement() {
+        localController.m_MouseLook.SetCursorLock(true);
+        StartCoroutine(GameStart(onlineRoomName.StartsWith("BRXOffline") ? 7 : 20)); //7 for SP, 20 for MP
     }
 
     IEnumerator GameStart(float time) {
