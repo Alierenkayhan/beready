@@ -56,7 +56,7 @@ public class exitgame : MonoBehaviour
     public void RestartGame()
     {
         PhotonNetwork.Disconnect();
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        Application.LoadLevel(0);
     }
     public void ExitGame()
     {
