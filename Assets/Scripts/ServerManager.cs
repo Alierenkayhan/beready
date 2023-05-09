@@ -68,11 +68,13 @@ public class ServerManager : MonoBehaviourPunCallbacks
         localPlayer = PhotonNetwork.Instantiate("Kemal", new Vector3(xvalue, yvalue, zvalue), Quaternion.identity, 0, null);
         localController = localPlayer.GetComponent<FirstPersonController>();
         localController.m_MouseLook.SetCursorLock(false);
+        localController.m_MouseLook.m_cursorIsLocked = false;
         localPlayer.transform.GetChild(0).transform.GetChild(0).transform.GetComponentInChildren<AlertController>().alert("Dikkat!", "Hoşgeldin, biraz sonra bir deprem simülasyonuna katılacaksın, eğer bu deneyim konusunda endişeliysen oyundan ayrılabilirsin. Deprem anında yaşanacaklar bu oyundakinden daha farklı olabilir, amacımız deprem anında yaşanacak olası bir senaryoyu hissettirmek. Devam etmek istiyor musun?", "Devam et", "Ayrıl", startEvent);
         //PhotonNetwork.Instantiate("Kemal", new Vector3(35.261f, 2.633f, 6.858f), Quaternion.identity, 0, null);
     }
 
     public void StartAfterAnnouncement() {
+        localController.m_MouseLook.m_cursorIsLocked = true;
         localController.m_MouseLook.SetCursorLock(true);
         StartCoroutine(GameStart(onlineRoomName.StartsWith("BRXOffline") ? 7 : 20)); //7 for SP, 20 for MP
     }
