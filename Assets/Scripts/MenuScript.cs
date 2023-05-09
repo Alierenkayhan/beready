@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using Photon.Pun;
 using UnityEngine;
@@ -7,21 +8,31 @@ public class MenuScript : MonoBehaviour {
     public GameObject buttons;
     public GameObject slider;
     private Slider sliderElement;
+    private List<GameObject> allSceneGameObjects;
 
     private int taggedObjects = 0;
 
     private void Start() {
         GameManager.earthquakeRigidbodies.Clear();
         sliderElement = slider.GetComponent<Slider>();
-        List<GameObject> allSceneGameObjects = GameManager.GetAllSceneGameObjects();
-        foreach (var obj in allSceneGameObjects) {
-            if (obj.CompareTag("EarthquakeRigidbody")) {
-                taggedObjects++;
+        StartCoroutine(LoadGameCoroutine());
+    }
+
+    private IEnumerator LoadGameCoroutine() {
+        if (taggedObjects == 0) {
+            allSceneGameObjects = GameManager.GetAllSceneGameObjects();
+            foreach (var obj in allSceneGameObjects) {
+                if (obj.CompareTag("EarthquakeRigidbody")) {
+                    taggedObjects++;
+                }
             }
         }
-
         sliderElement.maxValue = taggedObjects;
         sliderElement.value = 0;
+        yield return null;
+
+        var c = 0;
+        
         foreach (var obj in allSceneGameObjects) {
             if (obj.CompareTag("EarthquakeRigidbody")) {
                 var rb = obj.AddComponent<Rigidbody>();
@@ -40,8 +51,8 @@ public class MenuScript : MonoBehaviour {
                 }
                 obj.AddComponent<PhotonView>();
                 obj.AddComponent<PhotonRigidbodyView>();
-                if (obj.TryGetComponent(out Collider collider)) {
-                    if (collider.isTrigger) {
+                if (obj.TryGetComponent(out Collider cld)) {
+                    if (cld.isTrigger) {
                         var mc = obj.AddComponent<MeshCollider>();
                         mc.convex = true;
                     }
@@ -51,7 +62,12 @@ public class MenuScript : MonoBehaviour {
                 }
                 
                 GameManager.earthquakeRigidbodies.Add(rb);
-                sliderElement.value++;
+                sliderElement.SetValueWithoutNotify(sliderElement.value += 1);
+            }
+
+            if (++c > 10) {
+                c = 0;
+                yield return null;
             }
         }
         slider.SetActive(false);
