@@ -23,11 +23,24 @@ namespace UI {
         private void OnEnable() {
             configure();
         }
+     
 
         public void dismiss() {
-            if (_alertBodyTmp.text.StartsWith("Hoşgeldin")) {
-                alert("Seviye 1", "Birazdan deprem olacak, deprem anında en uygun yere saklanmanı ve deprem sonrası binayı en uygun şekilde terketmeni bekliyoruz.", "Tamam", "Ayrıl", callback);
-                return;
+            if (SceneManager.GetActiveScene().buildIndex != 0)
+            {
+                if (_alertBodyTmp.text.StartsWith("Hoşgeldin"))
+                {
+                    alert("Seviye " + SceneManager.GetActiveScene().buildIndex, "Birazdan deprem olacak, deprem anında en uygun yere saklanmanı ve deprem sonrası binayı en uygun şekilde terketmeni bekliyoruz.", "Tamam", "Ayrıl", callback);
+                    return;
+                }
+            }
+            else
+            {
+                if (_alertBodyTmp.text.StartsWith("Hoşgeldin"))
+                {
+                    alert("Deprem Simülasyonu ", "Şuan lobidesin. İlerde sol tarafta bulunan odalardan belirli seviyelerde deprem simülasyonuna katılabilirsin.", "Tamam", "Ayrıl", callback);
+                    return;
+                }
             }
             for (int i = 0; i < transform.childCount; i++) {
                 transform.GetChild(i).gameObject.SetActive(false);

@@ -15,6 +15,8 @@ public class kamerashake : MonoBehaviourPun
     [SerializeField] private float _downAmount;
     [SerializeField] private bool _isShake = false;
     [SerializeField] private int timer;
+
+    [SerializeField] private GameObject depremetkisiniayarlama;
     
     private bool doOnce = false;
 
@@ -24,6 +26,8 @@ public class kamerashake : MonoBehaviourPun
             Destroy(this);
             return;
         }
+        depremetkisiniayarlama = GameObject.Find("Depremetkisiniayarla");
+        _shakePowerinit = depremetkisiniayarlama.GetComponent<depremetkisiniayarlama>().deprempower;
     }
 
     private void Update() {

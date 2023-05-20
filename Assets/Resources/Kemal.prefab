@@ -912,6 +912,7 @@ MonoBehaviour:
   _downAmount: 0.1
   _isShake: 0
   timer: 1
+  depremetkisiniayarlama: {fileID: 0}
 --- !u!114 &1355413599343922537
 MonoBehaviour:
   m_ObjectHideFlags: 0

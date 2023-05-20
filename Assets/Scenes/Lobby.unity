@@ -6604,7 +6604,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6a91140f1a88ad42b9c0acd4a7e653c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  feedbackscreen: {fileID: 0}
   exitscreen: {fileID: 1227343184}
+  cam: {fileID: 0}
 --- !u!65 &847116613
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6923,6 +6925,7 @@ GameObject:
   m_Component:
   - component: {fileID: 917227354}
   - component: {fileID: 917227355}
+  - component: {fileID: 917227356}
   m_Layer: 0
   m_Name: Lvl 1
   m_TagString: Door
@@ -6958,6 +6961,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 2.5316389, y: 4.423525, z: 0.43639433}
   m_Center: {x: -0.30241406, y: 2.6901627, z: 0.75928086}
+--- !u!114 &917227356
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 917227353}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c04eb73c1055f84993412fcff2e5adf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scenelevel: 1
 --- !u!1 &924636731
 GameObject:
   m_ObjectHideFlags: 0
@@ -7579,8 +7595,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Level 2\nDeprem\n\u015Eartlar:\n30 saniye s\xFCresiniz var\nDeprem an\u0131nda
-    hayatta kalman\u0131z\u0131 sa\u011Flayacak \u015Fekilde kendinizi ayarlamal\u0131s\u0131n\u0131z."
+  m_text: "Level 2\nDeprem \u015Fiddeti = 6\nG\xF6rev = Deprem an\u0131nda hayatta
+    kalman\u0131z\u0131 sa\u011Flayacak \u015Fekilde kendinizi ayarlamal\u0131s\u0131n\u0131z."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -8200,6 +8216,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1150976088}
   - component: {fileID: 1150976089}
+  - component: {fileID: 1150976090}
   m_Layer: 0
   m_Name: Lvl 4
   m_TagString: Door
@@ -8235,6 +8252,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 2.5316389, y: 4.423525, z: 0.35264838}
   m_Center: {x: -0.30241406, y: 2.6901627, z: 0.7174079}
+--- !u!114 &1150976090
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1150976087}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c04eb73c1055f84993412fcff2e5adf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scenelevel: 4
 --- !u!1 &1151948023
 GameObject:
   m_ObjectHideFlags: 0
@@ -8326,8 +8356,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Level 1\nDeprem\n\u015Eartlar:\n30 saniye s\xFCresiniz var\nDeprem an\u0131nda
-    hayatta kalman\u0131z\u0131 sa\u011Flayacak \u015Fekilde kendinizi ayarlamal\u0131s\u0131n\u0131z."
+  m_text: "Level 1\nDeprem \u015Fiddeti = 5\nG\xF6rev = Deprem an\u0131nda hayatta
+    kalman\u0131z\u0131 sa\u011Flayacak \u015Fekilde kendinizi ayarlamal\u0131s\u0131n\u0131z."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -9859,6 +9889,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29b764bc9b3d42b4c8724a3822c9e951, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  xvalue: 0
+  yvalue: 0
+  zvalue: 0
+  soundObject: {fileID: 0}
+  localPlayer: {fileID: 0}
+  onlineRoomName: 
+  startEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!4 &1345511339
 Transform:
   m_ObjectHideFlags: 0
@@ -11176,6 +11215,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1501060324}
   - component: {fileID: 1501060325}
+  - component: {fileID: 1501060326}
   m_Layer: 0
   m_Name: Lvl 3
   m_TagString: Door
@@ -11211,6 +11251,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 2.5316389, y: 4.423525, z: 0.35264838}
   m_Center: {x: -0.30241406, y: 2.6901627, z: 0.7174079}
+--- !u!114 &1501060326
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1501060323}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c04eb73c1055f84993412fcff2e5adf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scenelevel: 3
 --- !u!1001 &1514724380
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11714,8 +11767,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Level 3\nDeprem\n\u015Eartlar:\n30 saniye s\xFCresiniz var\nDeprem an\u0131nda
-    hayatta kalman\u0131z\u0131 sa\u011Flayacak \u015Fekilde kendinizi ayarlamal\u0131s\u0131n\u0131z."
+  m_text: "Level 3\nDeprem \u015Fiddeti = 7\nG\xF6rev = Deprem an\u0131nda hayatta
+    kalman\u0131z\u0131 sa\u011Flayacak \u015Fekilde kendinizi ayarlamal\u0131s\u0131n\u0131z."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -12158,6 +12211,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1619196831}
   - component: {fileID: 1619196832}
+  - component: {fileID: 1619196833}
   m_Layer: 0
   m_Name: Lvl 2
   m_TagString: Door
@@ -12193,6 +12247,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 2.5316389, y: 4.423525, z: 0.35264838}
   m_Center: {x: -0.30241406, y: 2.6901627, z: 0.7174079}
+--- !u!114 &1619196833
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1619196830}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c04eb73c1055f84993412fcff2e5adf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scenelevel: 2
 --- !u!1 &1623720285
 GameObject:
   m_ObjectHideFlags: 0
@@ -13821,8 +13888,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Level 4\nDeprem\n\u015Eartlar:\n30 saniye s\xFCresiniz var\nDeprem an\u0131nda
-    hayatta kalman\u0131z\u0131 sa\u011Flayacak \u015Fekilde kendinizi ayarlamal\u0131s\u0131n\u0131z."
+  m_text: "Level 4\nDeprem \u015Fiddeti = 8\nG\xF6rev = Deprem an\u0131nda hayatta
+    kalman\u0131z\u0131 sa\u011Flayacak \u015Fekilde kendinizi ayarlamal\u0131s\u0131n\u0131z."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -14798,7 +14865,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ced05e83c733d0458c089ad158e0902, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levels: []
 --- !u!4 &2040884420
 Transform:
   m_ObjectHideFlags: 0
@@ -14826,11 +14892,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ced05e83c733d0458c089ad158e0902, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levels:
-  - {fileID: 917227353}
-  - {fileID: 1619196830}
-  - {fileID: 1501060323}
-  - {fileID: 1150976087}
 --- !u!1001 &2054341064
 PrefabInstance:
   m_ObjectHideFlags: 0
