@@ -26,15 +26,7 @@ namespace UI {
      
 
         public void dismiss() {
-            if (SceneManager.GetActiveScene().buildIndex != 0)
-            {
-                if (_alertBodyTmp.text.StartsWith("Hoşgeldin"))
-                {
-                    alert("Seviye " + SceneManager.GetActiveScene().buildIndex, "Birazdan deprem olacak, deprem anında en uygun yere saklanmanı ve deprem sonrası binayı en uygun şekilde terketmeni bekliyoruz.", "Tamam", "Ayrıl", callback);
-                    return;
-                }
-            }
-            else
+            if (GameManager.activeLevel == 0)
             {
                 if (_alertBodyTmp.text.StartsWith("Hoşgeldin"))
                 {
@@ -46,6 +38,10 @@ namespace UI {
                 transform.GetChild(i).gameObject.SetActive(false);
             }
             callback?.Invoke();
+            if (GameManager.localPlayer != null) {
+                GameManager.localPlayer.m_MouseLook.m_cursorIsLocked = true;
+                GameManager.localPlayer.m_MouseLook.SetCursorLock(true);
+            }
         }
 
         private void configure() {
@@ -62,6 +58,10 @@ namespace UI {
         }
 
         public void alert(string title, string body, string action, string cancel = "Ayrıl", UnityEvent dismissCallbackAction = null) {
+            if (GameManager.localPlayer != null) {
+                GameManager.localPlayer.m_MouseLook.SetCursorLock(false);
+                GameManager.localPlayer.m_MouseLook.m_cursorIsLocked = false;
+            }
             for (int i = 0; i < transform.childCount; i++) {
                 transform.GetChild(i).gameObject.SetActive(true);
             }

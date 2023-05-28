@@ -25,6 +25,8 @@ public class ServerManager : MonoBehaviourPunCallbacks
     void Start()
     {
         startEvent.AddListener(StartAfterAnnouncement);
+        DontDestroyOnLoad(this);
+        DontDestroyOnLoad(soundObject);
     }
 
     public void StartOnline() {
@@ -62,13 +64,15 @@ public class ServerManager : MonoBehaviourPunCallbacks
         }
     }
    
-    public override void OnJoinedRoom() 
+    public override void OnJoinedRoom()
     {
         base .OnJoinedRoom();
         localPlayer = PhotonNetwork.Instantiate("Kemal", new Vector3(xvalue, yvalue, zvalue), Quaternion.identity, 0, null);
+        DontDestroyOnLoad(localPlayer);
         localController = localPlayer.GetComponent<FirstPersonController>();
         localController.m_MouseLook.SetCursorLock(false);
         localController.m_MouseLook.m_cursorIsLocked = false;
+        GameManager.localPlayer = localController;
         localPlayer.transform.GetChild(0).transform.GetChild(0).transform.GetComponentInChildren<AlertController>().alert("Dikkat!", "Hoşgeldin, biraz sonra bir deprem simülasyonuna katılacaksın, eğer bu deneyim konusunda endişeliysen oyundan ayrılabilirsin. Deprem anında yaşanacaklar bu oyundakinden daha farklı olabilir, amacımız deprem anında yaşanacak olası bir senaryoyu hissettirmek. Devam etmek istiyor musun?", "Devam et", "Ayrıl", startEvent);
         //PhotonNetwork.Instantiate("Kemal", new Vector3(35.261f, 2.633f, 6.858f), Quaternion.identity, 0, null);
     }

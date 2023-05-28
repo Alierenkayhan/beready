@@ -5,7 +5,7 @@ using UnityEngine;
 public class depremdenetkilenecekler : MonoBehaviour
 {
     [SerializeField] Rigidbody[] gameObjects;
-    public int randomforce = Random.RandomRange(0, 10);
+    public int randomforce = Random.Range(0, 10);
 
     private void Update()
     {

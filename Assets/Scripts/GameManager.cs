@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Photon.Pun;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityStandardAssets.Characters.FirstPerson;
 using Random = UnityEngine.Random;
 
 
@@ -12,9 +13,17 @@ public class GameManager : MonoBehaviourPun
     //[SerializeField] GameObject[] levels;
     
     public static bool start = false;
+    public static bool shake = false;
     private bool doOnce = false;
+    private bool resetOnce = false;
+    public static FirstPersonController localPlayer;
 
     public static List<Rigidbody> earthquakeRigidbodies = new List<Rigidbody>();
+    public static List<Vector3> earthquakeRigidbodiesPosition = new List<Vector3>();
+    public static List<Quaternion> earthquakeRigidbodiesRotation = new List<Quaternion>();
+    public bool skipRBProcessing;
+
+    public static int activeLevel = 0;
     
     // private void OnTriggerEnter(Collider other)
     // {
@@ -23,9 +32,64 @@ public class GameManager : MonoBehaviourPun
     //         SceneManager.LoadScene("Level 1", LoadSceneMode.Additive);
     //     }
     // }
+    
+    public void ReloadSceneRigidbodies() {
+        earthquakeRigidbodies.Clear();
+        earthquakeRigidbodiesRotation.Clear();
+        earthquakeRigidbodiesPosition.Clear();
+        var allSceneGameObjects = GetAllSceneGameObjects();
+        foreach (var obj in allSceneGameObjects) {
+            if (obj.CompareTag("EarthquakeRigidbody")) {
+                var rb = obj.AddComponent<Rigidbody>();
+                float volume = 1;
+                if (obj.TryGetComponent(out Renderer component)) {
+                    Vector3 size = component.bounds.size;
+                    volume = size.x * size.y * size.z;
+                }
+                
+                if (rb != null) {
+                    rb.mass = 2.4f * volume;
+                    rb.isKinematic = true;
+                }
+                else {
+                    Debug.LogError("Failed to add Rigidbody component to object: " + obj.name);
+                }
+                obj.AddComponent<PhotonView>();
+                obj.AddComponent<PhotonRigidbodyView>();
+                if (obj.TryGetComponent(out Collider cld)) {
+                    if (cld.isTrigger) {
+                        var mc = obj.AddComponent<MeshCollider>();
+                        mc.convex = true;
+                    }
+                } else {
+                    var mc = obj.AddComponent<MeshCollider>();
+                    mc.convex = true;
+                }
+                
+                earthquakeRigidbodies.Add(rb);
+                earthquakeRigidbodiesPosition.Add(rb.position);
+                earthquakeRigidbodiesRotation.Add(rb.rotation);
+            }
+        }
+    }
+
+    public void ResetRBStates() {
+        for (int i = 0; i < earthquakeRigidbodies.Count; i++) {
+            var r = earthquakeRigidbodies[i];
+            r.isKinematic = true;
+            r.angularVelocity = Vector3.zero;
+            r.velocity = Vector3.zero;
+            r.rotation = earthquakeRigidbodiesRotation[i];
+            r.position = earthquakeRigidbodiesPosition[i];
+        }
+    }
+
+    private void Start() {
+        if(!skipRBProcessing) ReloadSceneRigidbodies();
+    }
 
     private void Update() {
-        if (start) {
+        if (shake) {
             if (!doOnce) {
                 if (PhotonNetwork.IsMasterClient) {
                     foreach (var rb in earthquakeRigidbodies) {
@@ -33,7 +97,12 @@ public class GameManager : MonoBehaviourPun
                     }
                 }
                 doOnce = true;
+                resetOnce = false;
             }
+        } else if (!resetOnce) {
+            doOnce = false;
+            resetOnce = true;
+            ResetRBStates();
         }
     }
 

@@ -14,7 +14,7 @@ public class exitgame : MonoBehaviour
  
     private void Start()
     {
-        exitscreen.SetActive(false);
+        if(exitscreen != null) exitscreen.SetActive(false);
         Time.timeScale = 1f;
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
@@ -36,7 +36,7 @@ public class exitgame : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (exitscreen.activeSelf) {
+            if (exitscreen != null && exitscreen.activeSelf) {
                 exitscreen.SetActive(false);
                 Cursor.visible = false;
                 Cursor.lockState = CursorLockMode.Locked;

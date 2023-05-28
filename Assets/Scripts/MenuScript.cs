@@ -14,11 +14,16 @@ public class MenuScript : MonoBehaviour {
 
     private void Start() {
         GameManager.earthquakeRigidbodies.Clear();
+        GameManager.earthquakeRigidbodiesRotation.Clear();
+        GameManager.earthquakeRigidbodiesPosition.Clear();
         sliderElement = slider.GetComponent<Slider>();
         StartCoroutine(LoadGameCoroutine());
     }
 
     private IEnumerator LoadGameCoroutine() {
+        GameManager.earthquakeRigidbodies.Clear();
+        GameManager.earthquakeRigidbodiesRotation.Clear();
+        GameManager.earthquakeRigidbodiesPosition.Clear();
         if (taggedObjects == 0) {
             allSceneGameObjects = GameManager.GetAllSceneGameObjects();
             foreach (var obj in allSceneGameObjects) {
@@ -62,10 +67,12 @@ public class MenuScript : MonoBehaviour {
                 }
                 
                 GameManager.earthquakeRigidbodies.Add(rb);
+                GameManager.earthquakeRigidbodiesPosition.Add(rb.position);
+                GameManager.earthquakeRigidbodiesRotation.Add(rb.rotation);
                 sliderElement.SetValueWithoutNotify(sliderElement.value += 1);
             }
 
-            if (++c > 10) {
+            if (++c > 30) {
                 c = 0;
                 yield return null;
             }

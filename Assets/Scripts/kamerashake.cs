@@ -9,7 +9,7 @@ public class kamerashake : MonoBehaviourPun
     [SerializeField] private Vector3 _startPos;
 
     [SerializeField] private float _shakePower;
-    [SerializeField] private float _shakePowerinit;
+    [SerializeField] public float _shakePowerinit;
     [SerializeField] private float _shakeDuration;
     private float _initialDuration;
     [SerializeField] private float _downAmount;
@@ -26,17 +26,22 @@ public class kamerashake : MonoBehaviourPun
             Destroy(this);
             return;
         }
-        depremetkisiniayarlama = GameObject.Find("Depremetkisiniayarla");
-        _shakePowerinit = depremetkisiniayarlama.GetComponent<depremetkisiniayarlama>().deprempower;
+
+        _shakePowerinit = 0;
     }
 
     private void Update() {
-        if (GameManager.start) {
+        if (GameManager.shake) {
             if (!doOnce) {
                 StartCoroutine(CameraShake());
                 doOnce = true;
             }
         }
+    }
+
+    public void ResetCameraShake() {
+        StopAllCoroutines();
+        doOnce = false;
     }
     
     void LateUpdate()
@@ -62,7 +67,6 @@ public class kamerashake : MonoBehaviourPun
         StartCoroutine(DecreaseIntensity(_shakeDuration / 2, _shakePower));
         yield return new WaitForSeconds(_shakeDuration/2);
         _isShake = false;
-
     }
 
     IEnumerator IncreaseIntensity(float time, float upper) {
