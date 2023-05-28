@@ -103,6 +103,9 @@ public class GameManager : MonoBehaviourPun
             doOnce = false;
             resetOnce = true;
             ResetRBStates();
+            for (int i = 1; i < 5; i++) {
+                GameObject.Find($"Lvl{i}label").SetActive(true);
+            }
         }
     }
 
