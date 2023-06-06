@@ -42,28 +42,28 @@ public class ServerManager : MonoBehaviourPunCallbacks
     public float shakePower;
     
     public void StartOffline1() {
-        location = new Vector3(xvalue, yvalue, zvalue);
+        location = new Vector3(-12.03f, 2.57f, -6.91f);
         shakePower = 0.5f;
         onlineRoomName = $"BRXOfflineLobby{Random.Range(1, 10000)}1";
         PhotonNetwork.ConnectUsingSettings();
     }
     
     public void StartOffline2() {
-        location = new Vector3(-21, yvalue, 9);
+        location = new Vector3(-12.03f, 2.57f, -6.91f);
         shakePower = 0.6f;
         onlineRoomName = $"BRXOfflineLobby{Random.Range(1, 10000)}2";
         PhotonNetwork.ConnectUsingSettings();
     }
     
     public void StartOffline3() {
-        location = new Vector3(-21, yvalue, 9);
+        location = new Vector3(4.625335f, 2.57f, 14.62446f);
         shakePower = 0.7f;
         onlineRoomName = $"BRXOfflineLobby{Random.Range(1, 10000)}3";
         PhotonNetwork.ConnectUsingSettings();
     }
     
     public void StartOffline4() {
-        location = new Vector3(-21, yvalue, 9);
+        location = new Vector3(29.56464f, 2.57f, -9.009202f);
         shakePower = 0.8f;
         onlineRoomName = $"BRXOfflineLobby{Random.Range(1, 10000)}4";
         PhotonNetwork.ConnectUsingSettings();
