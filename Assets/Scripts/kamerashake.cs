@@ -8,7 +8,7 @@ public class kamerashake : MonoBehaviourPun
     [SerializeField] private Transform _cam;
     [SerializeField] private Vector3 _startPos;
 
-    [SerializeField] private float _shakePower;
+    [SerializeField] public float _shakePower;
     [SerializeField] private float _shakePowerinit;
     [SerializeField] private float _shakeDuration;
     private float _initialDuration;

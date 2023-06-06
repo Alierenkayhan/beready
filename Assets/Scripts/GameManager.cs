@@ -24,6 +24,9 @@ public class GameManager : MonoBehaviourPun
     //     }
     // }
 
+    public GameObject sound1;
+    public GameObject sound2;
+
     private void Update() {
         if (start) {
             if (!doOnce) {
@@ -34,6 +37,14 @@ public class GameManager : MonoBehaviourPun
                 }
                 doOnce = true;
             }
+        }
+
+        if (Input.GetKeyDown(KeyCode.M)) {
+            var s1 = sound1.GetComponent<AudioSource>();
+            var s2 = sound2.GetComponent<AudioSource>();
+
+            s1.mute = !s1.mute;
+            s2.mute = !s2.mute;
         }
     }
 

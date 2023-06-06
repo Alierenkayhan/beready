@@ -37,9 +37,35 @@ public class ServerManager : MonoBehaviourPunCallbacks
     public void SetOnlineName(string _name) {
         onlineRoomName = _name;
     }
+
+    public Vector3 location;
+    public float shakePower;
     
-    public void StartOffline() {
-        onlineRoomName = $"BRXOfflineLobby{Random.Range(1, 10000)}";
+    public void StartOffline1() {
+        location = new Vector3(xvalue, yvalue, zvalue);
+        shakePower = 0.5f;
+        onlineRoomName = $"BRXOfflineLobby{Random.Range(1, 10000)}1";
+        PhotonNetwork.ConnectUsingSettings();
+    }
+    
+    public void StartOffline2() {
+        location = new Vector3(-21, yvalue, 9);
+        shakePower = 0.6f;
+        onlineRoomName = $"BRXOfflineLobby{Random.Range(1, 10000)}2";
+        PhotonNetwork.ConnectUsingSettings();
+    }
+    
+    public void StartOffline3() {
+        location = new Vector3(-21, yvalue, 9);
+        shakePower = 0.7f;
+        onlineRoomName = $"BRXOfflineLobby{Random.Range(1, 10000)}3";
+        PhotonNetwork.ConnectUsingSettings();
+    }
+    
+    public void StartOffline4() {
+        location = new Vector3(-21, yvalue, 9);
+        shakePower = 0.8f;
+        onlineRoomName = $"BRXOfflineLobby{Random.Range(1, 10000)}4";
         PhotonNetwork.ConnectUsingSettings();
     }
     
@@ -65,8 +91,9 @@ public class ServerManager : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom() 
     {
         base .OnJoinedRoom();
-        localPlayer = PhotonNetwork.Instantiate("Kemal", new Vector3(xvalue, yvalue, zvalue), Quaternion.identity, 0, null);
+        localPlayer = PhotonNetwork.Instantiate("Kemal", location, Quaternion.identity, 0, null);
         localController = localPlayer.GetComponent<FirstPersonController>();
+        localPlayer.GetComponent<kamerashake>()._shakePower = shakePower;
         localController.m_MouseLook.SetCursorLock(false);
         localController.m_MouseLook.m_cursorIsLocked = false;
         localPlayer.transform.GetChild(0).transform.GetChild(0).transform.GetComponentInChildren<AlertController>().alert("Dikkat!", "Hoşgeldin, biraz sonra bir deprem simülasyonuna katılacaksın, eğer bu deneyim konusunda endişeliysen oyundan ayrılabilirsin. Deprem anında yaşanacaklar bu oyundakinden daha farklı olabilir, amacımız deprem anında yaşanacak olası bir senaryoyu hissettirmek. Devam etmek istiyor musun?", "Devam et", "Ayrıl", startEvent);
@@ -76,7 +103,7 @@ public class ServerManager : MonoBehaviourPunCallbacks
     public void StartAfterAnnouncement() {
         localController.m_MouseLook.m_cursorIsLocked = true;
         localController.m_MouseLook.SetCursorLock(true);
-        StartCoroutine(GameStart(onlineRoomName.StartsWith("BRXOffline") ? 7 : 20)); //7 for SP, 20 for MP
+        StartCoroutine(GameStart(7f)); //7 for SP, 20 for MP
     }
 
     IEnumerator GameStart(float time) {
