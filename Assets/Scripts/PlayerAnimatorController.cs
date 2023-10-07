@@ -1,10 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.Design.Serialization;
-using Photon.Pun;
 using UnityEngine;
 
-public class PlayerAnimatorController : MonoBehaviourPun
+public class PlayerAnimatorController : MonoBehaviour
 {
     Animator animator;
     int iswalkinghash;
@@ -33,10 +32,6 @@ public class PlayerAnimatorController : MonoBehaviourPun
     // Update is called once per frame
     void Update()
     {
-        if (!photonView.IsMine)
-        {
-            return;
-        }
         bool forwardsPressed = Input.GetKey(KeyCode.W);
         bool runningPressed = Input.GetKey(KeyCode.LeftShift);
         bool leftPressed = Input.GetKey(KeyCode.A);

@@ -1,9 +1,6 @@
-using ExitGames.Client.Photon;
-using Photon.Pun;
-using Photon.Realtime;
 using UnityEngine;
 
-public class DoubleDoor : MonoBehaviourPunCallbacks, IOnEventCallback {
+public class DoubleDoor : MonoBehaviour {
 
     public GameObject Door1;
     public GameObject Door2;
@@ -17,29 +14,11 @@ public class DoubleDoor : MonoBehaviourPunCallbacks, IOnEventCallback {
     public const byte DoorOpenEventCode = 1;
     public const byte DoorCloseEventCode = 2;
 
-    public override void OnEnable()
-    {
-        base.OnEnable();
-        PhotonNetwork.AddCallbackTarget(this);
-    }
-
-    public override void OnDisable()
-    {
-        PhotonNetwork.RemoveCallbackTarget(this);
-        base.OnDisable();
-    }
-
     private void OnTriggerStay(Collider other) {
         if (other.CompareTag("EarthquakeRigidbody")) return;
         if (Input.GetKeyUp(KeyCode.Mouse0)) {
             if (canSwitch) {
-                object[] content = new object[] { transform.position }; // Array contains the target position and the IDs of the selected units
-                RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.All }; // You would have to set the Receivers to All in order to receive this event on the local client as well
-                if (open) {
-                    PhotonNetwork.RaiseEvent(DoorCloseEventCode, content, raiseEventOptions, SendOptions.SendReliable);
-                } else {
-                    PhotonNetwork.RaiseEvent(DoorOpenEventCode, content, raiseEventOptions, SendOptions.SendReliable);
-                }
+                InteractWithDoor(other);
             }
         }
     }
@@ -84,16 +63,12 @@ public class DoubleDoor : MonoBehaviourPunCallbacks, IOnEventCallback {
         switching = true;
     }
 
-    public void OnEvent(EventData photonEvent) {
-        if (photonEvent.Code is DoorCloseEventCode or DoorOpenEventCode) {
-            object[] data = (object[])photonEvent.CustomData;
-            Vector3 objID = (Vector3)data[0];
-            if (Vector3.Distance(objID, transform.position) < 1) {
-                if (photonEvent.Code == DoorOpenEventCode) {
-                    OpenDoor();
-                } else if (photonEvent.Code == DoorCloseEventCode) {
-                    CloseDoor();
-                }
+    public void InteractWithDoor(Collider other) {
+        if (Vector3.Distance(other.transform.position, transform.position) < 1) {
+            if (!open) {
+                OpenDoor();
+            } else {
+                CloseDoor();
             }
         }
     }

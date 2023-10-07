@@ -1,14 +1,13 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Photon.Pun;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityStandardAssets.Characters.FirstPerson;
 using Random = UnityEngine.Random;
 
 
-public class GameManager : MonoBehaviourPun
+public class GameManager : MonoBehaviour
 {
     //[SerializeField] GameObject[] levels;
     
@@ -54,8 +53,6 @@ public class GameManager : MonoBehaviourPun
                 else {
                     Debug.LogError("Failed to add Rigidbody component to object: " + obj.name);
                 }
-                obj.AddComponent<PhotonView>();
-                obj.AddComponent<PhotonRigidbodyView>();
                 if (obj.TryGetComponent(out Collider cld)) {
                     if (cld.isTrigger) {
                         var mc = obj.AddComponent<MeshCollider>();
@@ -91,10 +88,8 @@ public class GameManager : MonoBehaviourPun
     private void Update() {
         if (shake) {
             if (!doOnce) {
-                if (PhotonNetwork.IsMasterClient) {
-                    foreach (var rb in earthquakeRigidbodies) {
-                        StartCoroutine(RandomTimedForce(rb, Random.Range(3f, 9f), Random.Range(1f, 5f * rb.mass)));
-                    }
+                foreach (var rb in earthquakeRigidbodies) {
+                    StartCoroutine(RandomTimedForce(rb, Random.Range(3f, 9f), Random.Range(1f, 5f * rb.mass)));
                 }
                 doOnce = true;
                 resetOnce = false;

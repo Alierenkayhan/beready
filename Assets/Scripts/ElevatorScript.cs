@@ -1,12 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using ExitGames.Client.Photon;
-using Photon.Pun;
-using Photon.Realtime;
 using UnityEngine;
 
-public class ElevatorScript : MonoBehaviourPunCallbacks, IOnEventCallback {
+public class ElevatorScript : MonoBehaviour {
     public GameObject Door1;
     private Vector3 Door1Scale;
     private Vector3 Door1ScaleShort;
@@ -35,12 +32,6 @@ public class ElevatorScript : MonoBehaviourPunCallbacks, IOnEventCallback {
         if (Input.GetKeyUp(KeyCode.Mouse0)) {
             if (canSwitch) {
                 object[] content = new object[] { transform.position }; // Array contains the target position and the IDs of the selected units
-                RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.All }; // You would have to set the Receivers to All in order to receive this event on the local client as well
-                if (open) {
-                    PhotonNetwork.RaiseEvent(DoorCloseEventCode, content, raiseEventOptions, SendOptions.SendReliable);
-                } else {
-                    PhotonNetwork.RaiseEvent(DoorOpenEventCode, content, raiseEventOptions, SendOptions.SendReliable);
-                }
             }
         }
     }
@@ -85,17 +76,17 @@ public class ElevatorScript : MonoBehaviourPunCallbacks, IOnEventCallback {
         switching = true;
     }
 
-    public void OnEvent(EventData photonEvent) {
-        if (photonEvent.Code is DoorCloseEventCode or DoorOpenEventCode) {
-            object[] data = (object[])photonEvent.CustomData;
-            Vector3 objID = (Vector3)data[0];
-            if (Vector3.Distance(objID, transform.position) < 1) {
-                if (photonEvent.Code == DoorOpenEventCode) {
-                    OpenDoor();
-                } else if (photonEvent.Code == DoorCloseEventCode) {
-                    CloseDoor();
-                }
-            }
-        }
-    }
+    // public void OnEvent(EventData photonEvent) {
+    //     if (photonEvent.Code is DoorCloseEventCode or DoorOpenEventCode) {
+    //         object[] data = (object[])photonEvent.CustomData;
+    //         Vector3 objID = (Vector3)data[0];
+    //         if (Vector3.Distance(objID, transform.position) < 1) {
+    //             if (photonEvent.Code == DoorOpenEventCode) {
+    //                 OpenDoor();
+    //             } else if (photonEvent.Code == DoorCloseEventCode) {
+    //                 CloseDoor();
+    //             }
+    //         }
+    //     }
+    // }
 }

@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Photon.Pun;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -54,8 +53,6 @@ public class MenuScript : MonoBehaviour {
                 else {
                     Debug.LogError("Failed to add Rigidbody component to object: " + obj.name);
                 }
-                obj.AddComponent<PhotonView>();
-                obj.AddComponent<PhotonRigidbodyView>();
                 if (obj.TryGetComponent(out Collider cld)) {
                     if (cld.isTrigger) {
                         var mc = obj.AddComponent<MeshCollider>();

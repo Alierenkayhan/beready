@@ -1,5 +1,4 @@
 using System;
-using Photon.Pun;
 using UnityEngine;
 using UnityStandardAssets.CrossPlatformInput;
 using UnityStandardAssets.Utility;
@@ -10,7 +9,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 {
     [RequireComponent(typeof (CharacterController))]
     [RequireComponent(typeof (AudioSource))]
-    public class FirstPersonController : MonoBehaviourPun
+    public class FirstPersonController : MonoBehaviour
     {
         [SerializeField] private bool m_IsWalking;
         [SerializeField] private float m_WalkSpeed;
@@ -48,14 +47,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private void Start()
         {
             
-            if (photonView.IsMine) {
-                GetComponentInChildren<Camera>().enabled = true;
-            } else {
-                GetComponentInChildren<Camera>().enabled = false;
-                GetComponentInChildren<AudioListener>().enabled = false;
-                this.enabled = false;
-                Destroy(this);
-            }
+            GetComponentInChildren<Camera>().enabled = true;
             m_CharacterController = GetComponent<CharacterController>();
             m_Camera = Camera.main;
             m_OriginalCameraPosition = m_Camera.transform.localPosition;
@@ -65,10 +57,6 @@ namespace UnityStandardAssets.Characters.FirstPerson
             m_NextStep = m_StepCycle/2f;
             m_Jumping = false;
             m_AudioSource = GetComponent<AudioSource>();
-            if (!photonView.IsMine)
-            {
-                return;
-            }
 			m_MouseLook.Init(transform , m_Camera.transform);
         }
 
@@ -76,10 +64,6 @@ namespace UnityStandardAssets.Characters.FirstPerson
         // Update is called once per frame
         private void Update()
         {
-            if (!photonView.IsMine)
-            {
-                return;
-            }
             RotateView();
             // the jump state needs to read here to make sure it is not missed
             if (!m_Jump)
@@ -113,10 +97,6 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         private void FixedUpdate()
         {
-            if (!photonView.IsMine)
-            {
-                return;
-            }
             float speed;
             GetInput(out speed);
             // always move along the camera forward as it is the direction that it being aimed at
@@ -202,10 +182,6 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         private void UpdateCameraPosition(float speed)
         {
-            if (!photonView.IsMine)
-            {
-                return;
-            }
             Vector3 newCameraPosition;
             if (!m_UseHeadBob)
             {
@@ -230,10 +206,6 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         private void GetInput(out float speed)
         {
-            if (!photonView.IsMine) {
-                speed = m_CharacterController.velocity.magnitude;
-                return;
-            }
             // Read input
             float horizontal = CrossPlatformInputManager.GetAxis("Horizontal");
             float vertical = CrossPlatformInputManager.GetAxis("Vertical");

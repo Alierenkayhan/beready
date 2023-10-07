@@ -1,9 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
-using Photon.Pun;
 using UnityEngine;
 
-public class kamerashake : MonoBehaviourPun
+public class kamerashake : MonoBehaviour
 {
     [SerializeField] private Transform _cam;
     [SerializeField] private Vector3 _startPos;
@@ -22,11 +21,6 @@ public class kamerashake : MonoBehaviourPun
 
     void Start()
     {
-        if (!photonView.IsMine) {
-            Destroy(this);
-            return;
-        }
-
         _shakePowerinit = 0;
     }
 
