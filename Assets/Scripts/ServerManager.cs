@@ -1,6 +1,4 @@
-﻿using Photon.Pun;
-using Photon.Realtime;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UI;
 using UnityEngine;
@@ -8,7 +6,7 @@ using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using UnityStandardAssets.Characters.FirstPerson;
 
-public class ServerManager : MonoBehaviourPunCallbacks
+public class ServerManager : MonoBehaviour
 {
     // Start is called before the first frame update
     public float xvalue;
