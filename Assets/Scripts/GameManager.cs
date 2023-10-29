@@ -11,10 +11,11 @@ public class GameManager : MonoBehaviour
 {
     //[SerializeField] GameObject[] levels;
     
-    public static bool start = false;
+    public bool start = false;
     public static bool shake = false;
     private bool doOnce = false;
     private bool resetOnce = false;
+    public GameObject Kemal;
     public static FirstPersonController localPlayer;
 
     public static List<Rigidbody> earthquakeRigidbodies = new List<Rigidbody>();
@@ -85,7 +86,20 @@ public class GameManager : MonoBehaviour
         if(!skipRBProcessing) ReloadSceneRigidbodies();
     }
 
+    private IEnumerator StartGame() {
+        yield return new WaitForSeconds(10f);
+        shake = true;
+    }
+
     private void Update() {
+        if (start) {
+            if (!doOnce && !shake) {
+                doOnce = true;
+                GameObject.Instantiate(Kemal);
+                StartCoroutine(StartGame());
+                doOnce = false;
+            }
+        }
         if (shake) {
             if (!doOnce) {
                 foreach (var rb in earthquakeRigidbodies) {
