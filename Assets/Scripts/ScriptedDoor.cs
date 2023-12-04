@@ -3,6 +3,7 @@ using ExitGames.Client.Photon;
 using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
+using UnityEngine.XR;
 using Random = UnityEngine.Random;
 
 public class ScriptedDoor: MonoBehaviourPunCallbacks, IOnEventCallback {
@@ -37,7 +38,8 @@ public class ScriptedDoor: MonoBehaviourPunCallbacks, IOnEventCallback {
 
     private void OnTriggerStay(Collider other) {
         if (other.CompareTag("EarthquakeRigidbody")) return;
-        if (Input.GetKeyUp(KeyCode.Mouse0)) {
+        if (Input.GetKeyUp(KeyCode.B) || (Input.GetButtonUp("OculusBButton") && XRSettings.loadedDeviceName == "Oculus")) 
+        {
             if (canSwitch) {
                 object[] content = new object[] { transform.position }; // Array contains the target position and the IDs of the selected units
                 RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.All }; // You would have to set the Receivers to All in order to receive this event on the local client as well
