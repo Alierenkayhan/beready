@@ -9,6 +9,7 @@ TagManager:
   - Window
   - Door
   - EarthquakeRigidbody
+  - Crouch
   layers:
   - Default
   - TransparentFX
@@ -19,7 +20,7 @@ TagManager:
   - PostProcessing
   - Door
   - Frame
-  - 
+  - Trigger
   - 
   - 
   - 
