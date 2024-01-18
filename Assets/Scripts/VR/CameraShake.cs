@@ -18,7 +18,7 @@ namespace VR
 
         private void Awake()
         {
-            offset = transform.parent.gameObject;
+            offset = gameObject;
         }
 
         // Start is called before the first frame update
