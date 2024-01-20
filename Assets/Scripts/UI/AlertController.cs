@@ -1,5 +1,3 @@
-using System.Collections;
-using Photon.Pun;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
@@ -81,7 +79,6 @@ namespace UI {
         }
 
         public void reloadGame() {
-            PhotonNetwork.Disconnect();
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
