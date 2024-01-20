@@ -9,6 +9,10 @@ TagManager:
   - Window
   - Door
   - EarthquakeRigidbody
+  - Fire
+  - firstaidkit
+  - NextLevel
+  - Shakable
   layers:
   - Default
   - TransparentFX
