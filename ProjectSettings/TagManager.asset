@@ -13,6 +13,7 @@ TagManager:
   - firstaidkit
   - NextLevel
   - Shakable
+  - live
   layers:
   - Default
   - TransparentFX

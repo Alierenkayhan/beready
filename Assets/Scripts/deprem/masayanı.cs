@@ -7,6 +7,9 @@ public class masayanı : MonoBehaviour
     public GameObject depremManager;
     public bool live = false;
     public bool depremStart = false;
+    public GameObject feedbackFalse;
+    public GameObject feedbackTrue;
+
     private void Update()
     {
         depremStart = depremManager.GetComponent<Earthquake>().isShakeStart;
@@ -15,9 +18,21 @@ public class masayanı : MonoBehaviour
     {
         if (depremStart == true)
         {
-            if (Input.GetKey(KeyCode.LeftControl))
+            if (this.gameObject.tag == "live")
             {
-                live = true;
+                if (Input.GetKey(KeyCode.LeftControl))
+                {
+                    live = true;
+                    feedbackTrue.SetActive(true);
+                }
+                else
+                {
+                    feedbackFalse.SetActive(true);
+                }
+            }
+            else
+            {
+                feedbackFalse.SetActive(true);
             }
         }
     }     
