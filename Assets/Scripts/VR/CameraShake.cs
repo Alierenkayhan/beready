@@ -6,7 +6,7 @@ namespace VR
 {
     public class CameraShake : MonoBehaviour
     {
-        private GameObject offset;
+        private GameObject camera;
         private bool doShake;
         public bool shakeOverride = false;
         
@@ -18,7 +18,7 @@ namespace VR
 
         private void Awake()
         {
-            offset = gameObject;
+            camera = gameObject;
         }
 
         // Start is called before the first frame update
@@ -35,7 +35,7 @@ namespace VR
             if (doShake || shakeOverride)
             {
                 float elapsedTime = Time.time;
-                var position = offset.transform.position;
+                var position = camera.transform.localPosition;
 
                 float lerpTime = Mathf.PingPong(elapsedTime * frequency, 1f);
                 float newXPos = position.x + Mathf.Sin(lerpTime * 2 * Mathf.PI) * amplitude;
@@ -47,7 +47,11 @@ namespace VR
                 position = new Vector3(newXPos, position.y, newZPos);
                 prevX = newXPos;
                 prevZ = newZPos;
-                offset.transform.position = position;
+                camera.transform.localPosition = position;
+            }
+            else
+            {
+                camera.transform.localPosition = Vector3.zero;
             }
         }
     }
