@@ -27,6 +27,5 @@ public class feedback : MonoBehaviour
     {
         alert.SetActive(false);
         fare.SetActive(true);
-        RestartTheLevel();
     }
 }

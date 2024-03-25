@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class masayanı : MonoBehaviour
 {
@@ -14,6 +16,7 @@ public class masayanı : MonoBehaviour
     {
         depremStart = depremManager.GetComponent<Earthquake>().isShakeStart;
     }
+
     private void OnTriggerStay(Collider other)
     {
         if (depremStart == true)
@@ -34,6 +37,8 @@ public class masayanı : MonoBehaviour
             {
                 feedbackFalse.SetActive(true);
             }
+      
         }
-    }     
+    }
+ 
 }

@@ -27,7 +27,7 @@ public class needUI : MonoBehaviour
         {
             textEkraniGameObject.SetActive(true);
             string item = liste[currentIndex];
-            textEkrani.text = "Şu an " + item + " a ihtiyacın var.";
+            textEkrani.text = item + " ihtiyacın var.";
 
 
             if (currentIndex >= liste.Count)

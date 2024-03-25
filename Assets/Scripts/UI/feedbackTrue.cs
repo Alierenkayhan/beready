@@ -21,14 +21,11 @@ public class feedbackTrue : MonoBehaviour
         alertBodyTmp.text = bodys;
         Invoke("DeactivateAlert", 5f);
     }
-    public void startNextLevel()
-    {
-        SceneManager.LoadScene("Level 2");
-    }
+ 
     private void DeactivateAlert()
     {
         alert.SetActive(false);
         fare.SetActive(true);
-        startNextLevel();
+
     }
 }
