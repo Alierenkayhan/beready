@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using TMPro;
@@ -13,14 +14,23 @@ public class AlertController2 : MonoBehaviour
     [SerializeField] string bodys;
 
     [SerializeField] GameObject fare;
-    void Start()
+    
+    private float deactivateTime = 4f;
+
+    private void Start()
+    {
+        Invoke("DeactivateAlert", deactivateTime);
+    }
+
+    private void OnEnable()
     {
         alert.SetActive(true);
         fare.SetActive(false);
         alertTitleTmp.text = title;
         alertBodyTmp.text = bodys;
-        Invoke("DeactivateAlert", 5f);
+        Invoke("DeactivateAlert", deactivateTime);
     }
+
     private void DeactivateAlert()
     {
         alert.SetActive(false);

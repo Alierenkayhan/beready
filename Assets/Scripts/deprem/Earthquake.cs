@@ -7,17 +7,19 @@ public class Earthquake : MonoBehaviour
     public float magnitude = 0.1f; // Deprem büyüklüğü
     public float duration = 10f;   // Deprem süresi
     public float shakeSpeed = 5f;  // Titreme hızı
+    public float startTime = 15f;  // Titreme hızı
     public bool isShakeStart = false;
-    private float startTime;
 
     void Start()
     {
-        Invoke("StartEarthquake", 10f);
+        Invoke("StartEarthquake", startTime);
+        isShakeStart = false;
     }
 
     void StartEarthquake()
     {
         startTime = Time.time;
+        isShakeStart = true;
         InvokeRepeating("ShakeObjects", 0f, 0.1f); 
         Invoke("StopEarthquake", duration);
     }

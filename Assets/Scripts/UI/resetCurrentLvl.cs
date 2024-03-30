@@ -23,6 +23,11 @@ public class resetCurrentLvl : MonoBehaviour
             PlayerPrefs.Save();
 
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        } else if (Input.GetKeyDown(KeyCode.X))
+        {
+            PlayerPrefs.DeleteAll();
+            PlayerPrefs.Save();
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
 }

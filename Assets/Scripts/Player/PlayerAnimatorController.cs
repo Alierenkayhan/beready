@@ -102,4 +102,9 @@ public class PlayerAnimatorController : MonoBehaviour
             animator.SetBool(iscrouchidlehash, false);
         }
     }
+
+    public bool IsCrouching()
+    {
+        return animator.GetBool(iscrouchidlehash) || animator.GetBool(iscrouchwalkinghash);
+    }
 }

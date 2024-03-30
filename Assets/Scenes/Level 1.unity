@@ -555,7 +555,8 @@ PrefabInstance:
       objectReference: {fileID: 1487928299}
     - target: {fileID: 3792025812054802680, guid: 55d894030e3cfa243971a110ab62644a, type: 3}
       propertyPath: bodys
-      value: "60 saniye i\xE7inde deprem olacak ona g\xF6re konumunuzu ayarlay\u0131n."
+      value: "Bir s\xFCre sonra deprem ba\u015Flayacak. Konumunuzu se\xE7iminize
+        g\xF6re belirleyin."
       objectReference: {fileID: 0}
     - target: {fileID: 3792025812054802680, guid: 55d894030e3cfa243971a110ab62644a, type: 3}
       propertyPath: title
@@ -573,6 +574,10 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 1473323125}
+    - target: {fileID: 3792025812054802683, guid: 55d894030e3cfa243971a110ab62644a, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3792025812054802683, guid: 55d894030e3cfa243971a110ab62644a, type: 3}
       propertyPath: m_SortingOrder
       value: 0
@@ -1937,7 +1942,6 @@ GameObject:
   - component: {fileID: 36362325}
   - component: {fileID: 36362327}
   - component: {fileID: 36362326}
-  - component: {fileID: 36362328}
   m_Layer: 0
   m_Name: Door
   m_TagString: Untagged
@@ -2003,18 +2007,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 3.9189663, y: 4.8193674, z: 2.7888253}
   m_Center: {x: -1.388999, y: 2.1919403, z: -0.11221421}
---- !u!114 &36362328
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 36362324}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f6072961a5b56cd4b8f0ff1e7888847d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &40116521
 GameObject:
   m_ObjectHideFlags: 0
@@ -2522,6 +2514,7 @@ MonoBehaviour:
   magnitude: 2.5
   duration: 60
   shakeSpeed: 5
+  startTime: 10
   isShakeStart: 0
 --- !u!1 &57818781
 GameObject:
@@ -3789,7 +3782,6 @@ GameObject:
   - component: {fileID: 92202730}
   - component: {fileID: 92202729}
   - component: {fileID: 92202731}
-  - component: {fileID: 92202732}
   m_Layer: 0
   m_Name: Door
   m_TagString: Untagged
@@ -3886,18 +3878,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.012498556, y: 0.0015101032, z: 0.0228432}
   m_Center: {x: -0.0058000064, y: 0.000000028060036, z: 0.0114215985}
---- !u!114 &92202732
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 92202727}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &93573929
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8127,8 +8107,6 @@ GameObject:
   m_Component:
   - component: {fileID: 215237660}
   - component: {fileID: 215237663}
-  - component: {fileID: 215237662}
-  - component: {fileID: 215237661}
   m_Layer: 0
   m_Name: Door
   m_TagString: Door
@@ -8152,30 +8130,6 @@ Transform:
   - {fileID: 1730010291}
   m_Father: {fileID: 1855916688}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &215237661
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 215237659}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &215237662
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 215237659}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 401c238eb3bd2ea41a1dabfa5a671f4c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!65 &215237663
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -8434,7 +8388,6 @@ GameObject:
   - component: {fileID: 218379674}
   - component: {fileID: 218379673}
   - component: {fileID: 218379672}
-  - component: {fileID: 218379671}
   m_Layer: 0
   m_Name: Door
   m_TagString: Untagged
@@ -8460,18 +8413,6 @@ Transform:
   - {fileID: 1777044810}
   m_Father: {fileID: 942694586}
   m_LocalEulerAnglesHint: {x: -90, y: 180, z: -93.11401}
---- !u!114 &218379671
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 218379669}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!65 &218379672
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -12196,8 +12137,6 @@ GameObject:
   m_Component:
   - component: {fileID: 328343019}
   - component: {fileID: 328343022}
-  - component: {fileID: 328343021}
-  - component: {fileID: 328343020}
   m_Layer: 0
   m_Name: Door
   m_TagString: Door
@@ -12221,30 +12160,6 @@ Transform:
   - {fileID: 524335826}
   m_Father: {fileID: 1108061201}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &328343020
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 328343018}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &328343021
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 328343018}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 401c238eb3bd2ea41a1dabfa5a671f4c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!65 &328343022
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -12495,7 +12410,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 333695106}
-  - component: {fileID: 333695107}
   - component: {fileID: 333695108}
   m_Layer: 0
   m_Name: Door (12)
@@ -12522,18 +12436,6 @@ Transform:
   - {fileID: 1251344840}
   m_Father: {fileID: 657605638}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &333695107
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 333695105}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a1b47dd1c175a4042a76b8fc8b949813, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!65 &333695108
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -15100,8 +15002,6 @@ GameObject:
   m_Component:
   - component: {fileID: 419120100}
   - component: {fileID: 419120103}
-  - component: {fileID: 419120102}
-  - component: {fileID: 419120101}
   m_Layer: 0
   m_Name: Door
   m_TagString: Door
@@ -15125,30 +15025,6 @@ Transform:
   - {fileID: 835801863}
   m_Father: {fileID: 587212377}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &419120101
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 419120099}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &419120102
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 419120099}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 401c238eb3bd2ea41a1dabfa5a671f4c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!65 &419120103
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -16620,8 +16496,6 @@ GameObject:
   m_Component:
   - component: {fileID: 475833555}
   - component: {fileID: 475833558}
-  - component: {fileID: 475833557}
-  - component: {fileID: 475833556}
   m_Layer: 0
   m_Name: Door
   m_TagString: Door
@@ -16645,30 +16519,6 @@ Transform:
   - {fileID: 594030617}
   m_Father: {fileID: 355833498}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &475833556
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 475833554}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &475833557
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 475833554}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 401c238eb3bd2ea41a1dabfa5a671f4c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!65 &475833558
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -23693,7 +23543,6 @@ GameObject:
   m_Component:
   - component: {fileID: 728681523}
   - component: {fileID: 728681525}
-  - component: {fileID: 728681524}
   m_Layer: 0
   m_Name: AltDoubleDoor
   m_TagString: Untagged
@@ -23723,18 +23572,6 @@ Transform:
   - {fileID: 1788882977}
   m_Father: {fileID: 91966390}
   m_LocalEulerAnglesHint: {x: 0, y: 3.223, z: 0}
---- !u!114 &728681524
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 728681522}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a1b47dd1c175a4042a76b8fc8b949813, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!65 &728681525
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -28275,8 +28112,6 @@ GameObject:
   m_Component:
   - component: {fileID: 827335096}
   - component: {fileID: 827335099}
-  - component: {fileID: 827335098}
-  - component: {fileID: 827335097}
   m_Layer: 0
   m_Name: Door
   m_TagString: Door
@@ -28300,30 +28135,6 @@ Transform:
   - {fileID: 723379591}
   m_Father: {fileID: 1257831862}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &827335097
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 827335095}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &827335098
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 827335095}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 401c238eb3bd2ea41a1dabfa5a671f4c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!65 &827335099
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -29653,6 +29464,7 @@ MonoBehaviour:
   depremStart: 0
   feedbackFalse: {fileID: 3912800621102522652}
   feedbackTrue: {fileID: 1148898269}
+  control: {fileID: 0}
 --- !u!65 &854261115
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -29822,8 +29634,6 @@ GameObject:
   m_Component:
   - component: {fileID: 858515004}
   - component: {fileID: 858515007}
-  - component: {fileID: 858515006}
-  - component: {fileID: 858515005}
   m_Layer: 0
   m_Name: Door
   m_TagString: Door
@@ -29847,30 +29657,6 @@ Transform:
   - {fileID: 220264783}
   m_Father: {fileID: 1043280916}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &858515005
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 858515003}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &858515006
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 858515003}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 401c238eb3bd2ea41a1dabfa5a671f4c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!65 &858515007
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -30015,7 +29801,6 @@ GameObject:
   m_Component:
   - component: {fileID: 862318368}
   - component: {fileID: 862318369}
-  - component: {fileID: 862318370}
   m_Layer: 0
   m_Name: DoubleDoor
   m_TagString: Untagged
@@ -30066,18 +29851,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 5.62, y: 5.0041747, z: 4.625445}
   m_Center: {x: -1.0671997e-15, y: 2.2328804, z: -0.92490226}
---- !u!114 &862318370
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 862318367}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a1b47dd1c175a4042a76b8fc8b949813, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &865220042
 GameObject:
   m_ObjectHideFlags: 0
@@ -31015,8 +30788,6 @@ GameObject:
   m_Component:
   - component: {fileID: 896904790}
   - component: {fileID: 896904793}
-  - component: {fileID: 896904792}
-  - component: {fileID: 896904791}
   m_Layer: 0
   m_Name: Door
   m_TagString: Door
@@ -31040,30 +30811,6 @@ Transform:
   - {fileID: 270618105}
   m_Father: {fileID: 1355429038}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &896904791
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 896904789}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &896904792
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 896904789}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 401c238eb3bd2ea41a1dabfa5a671f4c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!65 &896904793
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -31337,8 +31084,6 @@ GameObject:
   m_Component:
   - component: {fileID: 905013784}
   - component: {fileID: 905013787}
-  - component: {fileID: 905013786}
-  - component: {fileID: 905013785}
   m_Layer: 0
   m_Name: Door
   m_TagString: Door
@@ -31362,30 +31107,6 @@ Transform:
   - {fileID: 1376958046}
   m_Father: {fileID: 1011090542}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &905013785
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 905013783}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &905013786
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 905013783}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 401c238eb3bd2ea41a1dabfa5a671f4c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!65 &905013787
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -36303,6 +36024,7 @@ MonoBehaviour:
   depremStart: 0
   feedbackFalse: {fileID: 3912800621102522652}
   feedbackTrue: {fileID: 1148898269}
+  control: {fileID: 0}
 --- !u!65 &1031921262
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -37369,7 +37091,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1081966546}
   - component: {fileID: 1081966549}
-  - component: {fileID: 1081966548}
   m_Layer: 0
   m_Name: Door
   m_TagString: Door
@@ -37393,18 +37114,6 @@ Transform:
   - {fileID: 186389149}
   m_Father: {fileID: 1333834099}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1081966548
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1081966545}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 401c238eb3bd2ea41a1dabfa5a671f4c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!65 &1081966549
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -37655,7 +37364,6 @@ GameObject:
   - component: {fileID: 1093248132}
   - component: {fileID: 1093248131}
   - component: {fileID: 1093248133}
-  - component: {fileID: 1093248134}
   m_Layer: 0
   m_Name: Door
   m_TagString: Untagged
@@ -37752,18 +37460,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.012498551, y: 0.0015100925, z: 0.022843199}
   m_Center: {x: -0.0061100232, y: 0.000000018335413, z: 0.011421608}
---- !u!114 &1093248134
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1093248129}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1094235932
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -38961,8 +38657,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1115010764}
   - component: {fileID: 1115010767}
-  - component: {fileID: 1115010766}
-  - component: {fileID: 1115010765}
   m_Layer: 0
   m_Name: Door
   m_TagString: Door
@@ -38986,30 +38680,6 @@ Transform:
   - {fileID: 1026066849}
   m_Father: {fileID: 333695106}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1115010765
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1115010763}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1115010766
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1115010763}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 401c238eb3bd2ea41a1dabfa5a671f4c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!65 &1115010767
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -44348,7 +44018,6 @@ GameObject:
   - component: {fileID: 1244097903}
   - component: {fileID: 1244097902}
   - component: {fileID: 1244097901}
-  - component: {fileID: 1244097905}
   m_Layer: 5
   m_Name: MenuCanvas
   m_TagString: Untagged
@@ -44443,18 +44112,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!114 &1244097905
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1244097900}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff81639f2317dff4781d544e765ddab4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1247343080
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -46361,6 +46018,7 @@ MonoBehaviour:
   depremStart: 0
   feedbackFalse: {fileID: 3912800621102522652}
   feedbackTrue: {fileID: 1148898269}
+  control: {fileID: 0}
 --- !u!4 &1294257238 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 968292777417071141, guid: 56a93cd127ed0184982c13ec0a61cfa5, type: 3}
@@ -51963,8 +51621,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1465539772}
   - component: {fileID: 1465539775}
-  - component: {fileID: 1465539774}
-  - component: {fileID: 1465539773}
   m_Layer: 0
   m_Name: Door
   m_TagString: Door
@@ -51988,30 +51644,6 @@ Transform:
   - {fileID: 159185807}
   m_Father: {fileID: 880821357}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1465539773
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1465539771}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1465539774
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1465539771}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 401c238eb3bd2ea41a1dabfa5a671f4c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!65 &1465539775
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -54131,8 +53763,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1517830909}
   - component: {fileID: 1517830912}
-  - component: {fileID: 1517830911}
-  - component: {fileID: 1517830910}
   m_Layer: 0
   m_Name: Door
   m_TagString: Door
@@ -54156,30 +53786,6 @@ Transform:
   - {fileID: 1941477343}
   m_Father: {fileID: 1111348464}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1517830910
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1517830908}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1517830911
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1517830908}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 401c238eb3bd2ea41a1dabfa5a671f4c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!65 &1517830912
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -55094,7 +54700,7 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 1, y: 1.9218285, z: 1}
   m_Center: {x: 0, y: -0.04013979, z: 0}
@@ -61754,7 +61360,6 @@ GameObject:
   - component: {fileID: 1719308875}
   - component: {fileID: 1719308874}
   - component: {fileID: 1719308873}
-  - component: {fileID: 1719308872}
   m_Layer: 0
   m_Name: Door
   m_TagString: Untagged
@@ -61780,18 +61385,6 @@ Transform:
   - {fileID: 1718314887}
   m_Father: {fileID: 1527815769}
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 85.905}
---- !u!114 &1719308872
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1719308870}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!65 &1719308873
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -64093,8 +63686,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1787789058}
   - component: {fileID: 1787789059}
-  - component: {fileID: 1787789060}
-  - component: {fileID: 1787789061}
   m_Layer: 0
   m_Name: Door
   m_TagString: Door
@@ -64139,30 +63730,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 3.3263175, y: 2.971197, z: 4.5763416}
   m_Center: {x: -1.3539938, y: -0.3731028, z: 2.1215703}
---- !u!114 &1787789060
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1787789057}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 401c238eb3bd2ea41a1dabfa5a671f4c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1787789061
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1787789057}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1788079975
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -68262,8 +67829,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1890661184}
   - component: {fileID: 1890661187}
-  - component: {fileID: 1890661186}
-  - component: {fileID: 1890661185}
   m_Layer: 0
   m_Name: Door
   m_TagString: Door
@@ -68287,30 +67852,6 @@ Transform:
   - {fileID: 2116133082}
   m_Father: {fileID: 732387983}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1890661185
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1890661183}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1890661186
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1890661183}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 401c238eb3bd2ea41a1dabfa5a671f4c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!65 &1890661187
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -71510,8 +71051,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1988460262}
   - component: {fileID: 1988460265}
-  - component: {fileID: 1988460264}
-  - component: {fileID: 1988460263}
   m_Layer: 0
   m_Name: Door
   m_TagString: Door
@@ -71535,30 +71074,6 @@ Transform:
   - {fileID: 1630478110}
   m_Father: {fileID: 279797343}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1988460263
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1988460261}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1988460264
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1988460261}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 401c238eb3bd2ea41a1dabfa5a671f4c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!65 &1988460265
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -76921,6 +76436,7 @@ MonoBehaviour:
   depremStart: 0
   feedbackFalse: {fileID: 3912800621102522652}
   feedbackTrue: {fileID: 1148898269}
+  control: {fileID: 0}
 --- !u!65 &2140365498
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -76940,8 +76456,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1.8241397, z: 1.2591196}
-  m_Center: {x: 0, y: -0.41206986, z: -0.1295603}
+  m_Size: {x: 0.9112712, y: 1.8241397, z: 0.72685134}
+  m_Center: {x: 0.10045207, y: -0.41206986, z: 0.13657309}
 --- !u!23 &2140365499
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -77177,6 +76693,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8458094348003569556, guid: a35aaf0832dc0bc4b8e7a967a7cb043a, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8458094348005918324, guid: a35aaf0832dc0bc4b8e7a967a7cb043a, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -77226,8 +76746,20 @@ PrefabInstance:
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 8458094348006218324, guid: a35aaf0832dc0bc4b8e7a967a7cb043a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8458094348006218324, guid: a35aaf0832dc0bc4b8e7a967a7cb043a, type: 3}
       propertyPath: m_TagString
       value: Untagged
+      objectReference: {fileID: 0}
+    - target: {fileID: 8458094348011419956, guid: a35aaf0832dc0bc4b8e7a967a7cb043a, type: 3}
+      propertyPath: m_Mass
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8764082042461515769, guid: a35aaf0832dc0bc4b8e7a967a7cb043a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -77360,7 +76892,7 @@ MonoBehaviour:
   alertTitleTmp: {fileID: 6410644417326989413}
   alertBodyTmp: {fileID: 6410644416360804006}
   title: Feedback
-  bodys: "\u015Eu an yapt\u0131\u011F\u0131n y\xF6ntem uzmanlar taraf\u0131ndan \xF6nerilmiyo"
+  bodys: "\u015Eu an yapt\u0131\u011F\u0131n y\xF6ntem uzmanlar taraf\u0131ndan \xF6nerilmiyor"
   fare: {fileID: 1487928299}
 --- !u!114 &6410644416360804006
 MonoBehaviour:

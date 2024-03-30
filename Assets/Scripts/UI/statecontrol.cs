@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -12,18 +13,36 @@ public class statecontrol : MonoBehaviour
     public TMP_Text exitreyanıTXT;
     private int count = 0;
 
+    private Color darkGray;
+    private PlayerAnimatorController anim;
+
+    private Collider other;
+
+    private void Awake()
+    {
+        darkGray = new Color(0.35f, 0.35f, 0.35f, 1f);
+        anim = GetComponent<PlayerAnimatorController>();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
         //PlayerPrefs.DeleteAll();
         // PlayerPrefs'ten kaydedilen count değerini al
-        count = PlayerPrefs.GetInt("MasayaniCount", 0);
+        count = GetChoiceCount();
 
         // PlayerPrefs'ten kaydedilen renk değerlerini al
-        masayanıTXT.color = StringToColor(PlayerPrefs.GetString("MasayanıTXTColor", ""));
-        dolapyanıTXT.color = StringToColor(PlayerPrefs.GetString("DolapyanıTXTColor", ""));
-        pencereyanıTXT.color = StringToColor(PlayerPrefs.GetString("PencereyanıTXTColor", ""));
-        exitreyanıTXT.color = StringToColor(PlayerPrefs.GetString("ExitreyanıTXTColor", ""));
+        // masayanıTXT.color = StringToColor(PlayerPrefs.GetString("MasayanıTXTColor", ""));
+        // dolapyanıTXT.color = StringToColor(PlayerPrefs.GetString("DolapyanıTXTColor", ""));
+        // pencereyanıTXT.color = StringToColor(PlayerPrefs.GetString("PencereyanıTXTColor", ""));
+        // exitreyanıTXT.color = StringToColor(PlayerPrefs.GetString("ExitreyanıTXTColor", ""));
+
+        masayanıTXT.color = PlayerPrefs.GetInt("masaCrouchDone", 0) + PlayerPrefs.GetInt("masaDone", 0) == 2 ? darkGray : Color.white;
+        pencereyanıTXT.color = PlayerPrefs.GetInt("pencereDone", 0) == 1 ? darkGray : Color.white;
+        dolapyanıTXT.color = PlayerPrefs.GetInt("dolapDone", 0) == 1 ? darkGray : Color.white;
+        exitreyanıTXT.color = PlayerPrefs.GetInt("exitDone", 0) == 1 ? darkGray : Color.white;
+
+        StartCoroutine(doOncePerSecond());
     }
 
     private void Update()
@@ -32,48 +51,87 @@ public class statecontrol : MonoBehaviour
         {
             SceneManager.LoadScene("Level 2");
         }
-        Debug.Log(count);
+        // Debug.Log(count);
     }
 
-    private void OnCollisionEnter(Collision collision)
+    IEnumerator doOncePerSecond()
     {
-        Debug.Log(count);
-        Debug.Log(collision.gameObject.tag);
-
-        PlayerPrefs.SetInt("MasayaniCount", count);
-
-        if (collision.gameObject.tag == "live")
+        while (count < 5)
         {
-            if (Input.GetKey(KeyCode.LeftControl))
+            yield return new WaitForSecondsRealtime(1f);
+            count = GetChoiceCount();
+        }
+    }
+
+    private void OnTriggerEnter(Collider o)
+    {
+        // Debug.Log(collision.gameObject.tag);
+
+        // PlayerPrefs.SetInt("MasayaniCount", count);
+
+        other = o;
+    }
+
+    private void OnTriggerExit(Collider o)
+    {
+        if (other == o)
+        {
+            other = null;
+        }
+    }
+
+    public bool EvaluateAnswer()
+    {
+        print($"Statecontrol answer evaluation with other object {other.gameObject.name}");
+        bool x = false;
+        
+        if (other.gameObject.CompareTag("live"))
+        {
+            if (anim.IsCrouching())
             {
-                masayanıTXT.color = Color.grey;
-                PlayerPrefs.SetString("MasayanıTXTColor", ColorToString(masayanıTXT.color));
+                // masayanıTXT.color = Color.grey;
+                // PlayerPrefs.SetString("MasayanıTXTColor", ColorToString(masayanıTXT.color));
+                PlayerPrefs.SetInt("masaCrouchDone", 1);
+                print("Masa crouch");
+                x = true;
             }
             else
             {
-                masayanıTXT.color = Color.grey;
-                PlayerPrefs.SetString("MasayanıTXTColor", ColorToString(masayanıTXT.color));
+                // masayanıTXT.color = Color.grey;
+                // PlayerPrefs.SetString("MasayanıTXTColor", ColorToString(masayanıTXT.color));
+                PlayerPrefs.SetInt("masaDone", 1);
+                print("Masa");
             }
         }
-        if (collision.gameObject.tag == "dolap")
+        if (other.gameObject.CompareTag("dolap"))
         {
-            dolapyanıTXT.color = Color.grey;
-            PlayerPrefs.SetString("DolapyanıTXTColor", ColorToString(dolapyanıTXT.color));
+            // dolapyanıTXT.color = Color.grey;
+            // PlayerPrefs.SetString("DolapyanıTXTColor", ColorToString(dolapyanıTXT.color));
+            PlayerPrefs.SetInt("dolapDone", 1);
+            print("Dolap");
         }
-        if (collision.gameObject.tag == "pencere")
+        if (other.gameObject.CompareTag("pencere"))
         {
-            pencereyanıTXT.color = Color.grey;
-            PlayerPrefs.SetString("PencereyanıTXTColor", ColorToString(pencereyanıTXT.color));
+            // pencereyanıTXT.color = Color.grey;
+            // PlayerPrefs.SetString("PencereyanıTXTColor", ColorToString(pencereyanıTXT.color));
+            PlayerPrefs.SetInt("pencereDone", 1);
+            print("Pencere");
         }
-        if (collision.gameObject.tag == "exit")
+        if (other.gameObject.CompareTag("exit"))
         {
-            exitreyanıTXT.color = Color.grey;
-            PlayerPrefs.SetString("ExitreyanıTXTColor", ColorToString(exitreyanıTXT.color));
+            // exitreyanıTXT.color = Color.grey;
+            // PlayerPrefs.SetString("ExitreyanıTXTColor", ColorToString(exitreyanıTXT.color));
+            PlayerPrefs.SetInt("exitDone", 1);
+            print("exit");
         }
-
-        count++;
+        
+        count = GetChoiceCount();
+        print(count);
+        
         PlayerPrefs.Save();
+        return x;
     }
+
     private string ColorToString(Color color)
     {
         return color.r + "," + color.g + "," + color.b + "," + color.a;
@@ -90,5 +148,14 @@ public class statecontrol : MonoBehaviour
 
         // Hata durumunda beyaz rengi döndür
         return Color.white;
+    }
+
+    private int GetChoiceCount()
+    {
+        return PlayerPrefs.GetInt("masaCrouchDone", 0) +
+               PlayerPrefs.GetInt("masaDone", 0) +
+               PlayerPrefs.GetInt("pencereDone", 0) +
+               PlayerPrefs.GetInt("dolapDone", 0) +
+               PlayerPrefs.GetInt("exitDone", 0);
     }
 }
