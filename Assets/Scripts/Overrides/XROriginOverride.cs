@@ -1,4 +1,4 @@
-// ENABLE_VR is not defined on Game Core but the assembly is available with limited features when the XR module is enabled.
+/*// ENABLE_VR is not defined on Game Core but the assembly is available with limited features when the XR module is enabled.
 #if ENABLE_VR || UNITY_GAMECORE
 #define XR_MODULE_AVAILABLE
 #endif
@@ -58,7 +58,7 @@ namespace Overrides
         /// <remarks>
         /// See [Trackables](xref:arfoundation-managers) for more information.
         /// </remarks>
-        public Transform TrackablesParent { get; private set; }
+        public new Transform TrackablesParent { get; private set; }
 
         /// <summary>
         /// Invoked during
@@ -73,7 +73,7 @@ namespace Overrides
         /// <seealso cref="RequestedTrackingOriginMode"/>
         /// <seealso cref="TrackingOriginModeFlags"/>
         /// <seealso cref="XRInputSubsystem.TrySetTrackingOriginMode"/>
-        public enum TrackingOriginMode
+        public new enum TrackingOriginMode
         {
             /// <summary>
             /// Uses the default Tracking Origin Mode of the input device.
@@ -121,7 +121,7 @@ namespace Overrides
         /// The "Origin" <see cref="GameObject"/> is used to refer to the base of the XR Origin, by default it is this <see cref="GameObject"/>.
         /// This is the <see cref="GameObject"/> that will be manipulated via locomotion.
         /// </summary>
-        public GameObject Origin
+        public new GameObject Origin
         {
             get => m_OriginBaseGameObject;
             set => m_OriginBaseGameObject = value;
@@ -134,7 +134,7 @@ namespace Overrides
         /// The <see cref="GameObject"/> to move to desired height off the floor (defaults to this object if none provided).
         /// This is used to transform the XR device from camera space to XR Origin space.
         /// </summary>
-        public GameObject CameraFloorOffsetObject
+        public new GameObject CameraFloorOffsetObject
         {
             get => m_CameraFloorOffsetObject;
             set
@@ -152,7 +152,7 @@ namespace Overrides
         /// of tracking. Not all devices support all tracking origin modes.
         /// </summary>
         /// <seealso cref="TrackingOriginMode"/>
-        public TrackingOriginMode RequestedTrackingOriginMode
+        public new TrackingOriginMode RequestedTrackingOriginMode
         {
             get => m_RequestedTrackingOriginMode;
             set
@@ -169,7 +169,7 @@ namespace Overrides
         /// Camera height to be used when in <c>Device</c> Tracking Origin Mode to define the height of the user from the floor.
         /// This is the amount that the camera is offset from the floor when moving the <see cref="CameraFloorOffsetObject"/>.
         /// </summary>
-        public float CameraYOffset
+        public new float CameraYOffset
         {
             get => m_CameraYOffset;
             set
@@ -387,7 +387,7 @@ namespace Overrides
         /// <param name="vector">The axis of the rotation.</param>
         /// <param name="angleDegrees">The amount of rotation in degrees.</param>
         /// <returns>Returns <see langword="true"/> if the rotation is performed. Otherwise, returns <see langword="false"/>.</returns>
-        public bool RotateAroundCameraPosition(Vector3 vector, float angleDegrees)
+        public new bool RotateAroundCameraPosition(Vector3 vector, float angleDegrees)
         {
             if (cameraParent == null || m_OriginBaseGameObject == null)
             {
@@ -406,7 +406,7 @@ namespace Overrides
         /// <param name="destinationUp">the vector to which the XR Origin object's up vector will be matched.</param>
         /// <returns>Returns <see langword="true"/> if the rotation is performed or the vectors have already been matched.
         /// Otherwise, returns <see langword="false"/>.</returns>
-        public bool MatchOriginUp(Vector3 destinationUp)
+        public new bool MatchOriginUp(Vector3 destinationUp)
         {
             if (m_OriginBaseGameObject == null)
             {
@@ -439,7 +439,7 @@ namespace Overrides
         /// <param name="destinationUp">The up vector that the origin's up vector will be matched to.</param>
         /// <param name="destinationForward">The forward vector that will be matched to the projection of the camera's forward vector on the plane with the normal <paramref name="destinationUp"/>.</param>
         /// <returns>Returns <see langword="true"/> if the rotation is performed. Otherwise, returns <see langword="false"/>.</returns>
-        public bool MatchOriginUpCameraForward(Vector3 destinationUp, Vector3 destinationForward)
+        public new bool MatchOriginUpCameraForward(Vector3 destinationUp, Vector3 destinationForward)
         {
             if (cameraParent != null && MatchOriginUp(destinationUp))
             {
@@ -472,7 +472,7 @@ namespace Overrides
         /// <param name="destinationForward">The forward vector that will be matched to the forward vector of the XR Origin object,
         /// which is the direction the player moves in Unity when walking forward in the physical world.</param>
         /// <returns>Returns <see langword="true"/> if the rotation is performed. Otherwise, returns <see langword="false"/>.</returns>
-        public bool MatchOriginUpOriginForward(Vector3 destinationUp, Vector3 destinationForward)
+        public new bool MatchOriginUpOriginForward(Vector3 destinationUp, Vector3 destinationForward)
         {
             if (m_OriginBaseGameObject != null && MatchOriginUp(destinationUp))
             {
@@ -493,7 +493,7 @@ namespace Overrides
         /// </summary>
         /// <param name="desiredWorldLocation">the position in world space that the camera should be moved to</param>
         /// <returns>Returns <see langword="true"/> if the move is performed. Otherwise, returns <see langword="false"/>.</returns>
-        public bool MoveCameraToWorldLocation(Vector3 desiredWorldLocation)
+        public new bool MoveCameraToWorldLocation(Vector3 desiredWorldLocation)
         {
             if (cameraParent == null)
             {
@@ -510,7 +510,7 @@ namespace Overrides
         /// <summary>
         /// See <see cref="MonoBehaviour"/>.
         /// </summary>
-        protected void Awake()
+        protected new void Awake()
         {
             if (m_CameraFloorOffsetObject == null)
             {
@@ -609,7 +609,7 @@ namespace Overrides
         /// <summary>
         /// See <see cref="MonoBehaviour"/>.
         /// </summary>
-        protected void OnValidate()
+        protected new void OnValidate()
         {
             if (m_OriginBaseGameObject == null)
                 m_OriginBaseGameObject = gameObject;
@@ -663,7 +663,7 @@ namespace Overrides
         /// <summary>
         /// See <see cref="MonoBehaviour"/>.
         /// </summary>
-        protected void Start()
+        protected new void Start()
         {
             TryInitializeCamera();
         }
@@ -671,7 +671,7 @@ namespace Overrides
         /// <summary>
         /// See <see cref="MonoBehaviour"/>.
         /// </summary>
-        protected void OnDestroy()
+        protected new void OnDestroy()
         {
 #if XR_MODULE_AVAILABLE
             foreach (var inputSubsystem in s_InputSubsystems)
@@ -683,3 +683,4 @@ namespace Overrides
         }
     }
 }
+*/

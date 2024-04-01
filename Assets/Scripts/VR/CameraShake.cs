@@ -1,57 +1,55 @@
-using System;
-using System.Collections;
 using UnityEngine;
 
 namespace VR
 {
     public class CameraShake : MonoBehaviour
     {
-        private GameObject camera;
-        private bool doShake;
-        public bool shakeOverride = false;
+        [HideInInspector]
+        public bool doShake;
+
+        public bool enableShake = false;
+        public bool disableShake = false;
         
         public float amplitude;
         public float frequency;
-
-        public float prevX;
-        public float prevZ;
-
-        private void Awake()
-        {
-            camera = gameObject;
-        }
-
-        // Start is called before the first frame update
-        void Start()
-        {
-            if (PlayerPrefs.GetInt("doShake") == 1)
-            {
-                doShake = true;
-            }
-        }
+        
+        [HideInInspector]
+        public Vector3 initialPosition;
+        
+        [HideInInspector]
+        public Vector3 shakePosition;
+        
+        [HideInInspector]
+        public bool isShaking;
+        private bool wasShaking;
 
         private void Update()
         {
-            if (doShake || shakeOverride)
+            if (disableShake)
             {
-                float elapsedTime = Time.time;
-                var position = camera.transform.localPosition;
-
-                float lerpTime = Mathf.PingPong(elapsedTime * frequency, 1f);
-                float newXPos = position.x + Mathf.Sin(lerpTime * 2 * Mathf.PI) * amplitude;
-                float newZPos = position.z + Mathf.Cos(lerpTime * 2 * Mathf.PI) * amplitude;
-
-                newXPos -= prevX;
-                newZPos -= prevZ;
-
-                position = new Vector3(newXPos, position.y, newZPos);
-                prevX = newXPos;
-                prevZ = newZPos;
-                camera.transform.localPosition = position;
+                shakePosition = Vector3.zero;
+                initialPosition = Vector3.zero;
+                isShaking = false;
             }
-            else
+            else if (doShake || enableShake)
             {
-                camera.transform.localPosition = Vector3.zero;
+                isShaking = true;
+
+                float shakeAmountX = Mathf.PerlinNoise(0f, Time.time * frequency) * amplitude;
+                float shakeAmountY = Mathf.PerlinNoise(10f, Time.time * frequency) * 0;
+                float shakeAmountZ = Mathf.PerlinNoise(20f, Time.time * frequency) * amplitude;
+
+                shakePosition = initialPosition + new Vector3(shakeAmountX, shakeAmountY, shakeAmountZ);
+            }
+
+            if (!isShaking && wasShaking)
+            {
+                print("Stopped shaking");
+                wasShaking = false;
+            } else if (isShaking && !wasShaking)
+            {
+                print("Started shaking");
+                wasShaking = true;
             }
         }
     }

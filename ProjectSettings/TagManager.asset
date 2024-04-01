@@ -9,6 +9,12 @@ TagManager:
   - Window
   - Door
   - EarthquakeRigidbody
+  - XROrigin
+  - XRWorldUI
+  - XRPositionTrigger
+  - XRCameraPosition
+  - Crouch
+  - XRCanvasUI
   layers:
   - Default
   - TransparentFX
@@ -19,8 +25,8 @@ TagManager:
   - PostProcessing
   - Door
   - Frame
-  - 
-  - 
+  - XRCameraPosition
+  - XRPositionTrigger
   - 
   - 
   - 

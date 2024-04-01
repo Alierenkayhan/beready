@@ -1,5 +1,3 @@
-using System.Collections;
-using Photon.Pun;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
@@ -18,26 +16,29 @@ namespace UI {
         private TextMeshProUGUI _alertCancelTmp;
 
         private bool _configured;
-        private UnityEvent callback;
+        private UnityEvent actionCallback;
+        private UnityEvent cancelCallback;
 
         private void OnEnable() {
             configure();
         }
-     
-
-        public void dismiss() {
-            if (GameManager.activeLevel == 0)
-            {
-                if (_alertBodyTmp.text.StartsWith("Hoşgeldin"))
-                {
-                    alert("Deprem Simülasyonu ", "Şuan lobidesin. İlerde sol tarafta bulunan odalardan belirli seviyelerde deprem simülasyonuna katılabilirsin.", "Tamam", "Ayrıl", callback);
-                    return;
-                }
-            }
+        
+        public void ActionDismiss() {
             for (int i = 0; i < transform.childCount; i++) {
                 transform.GetChild(i).gameObject.SetActive(false);
             }
-            callback?.Invoke();
+            actionCallback?.Invoke();
+            if (GameManager.localPlayer != null) {
+                GameManager.localPlayer.m_MouseLook.m_cursorIsLocked = true;
+                GameManager.localPlayer.m_MouseLook.SetCursorLock(true);
+            }
+        }
+        
+        public void CancelDismiss() {
+            for (int i = 0; i < transform.childCount; i++) {
+                transform.GetChild(i).gameObject.SetActive(false);
+            }
+            cancelCallback?.Invoke();
             if (GameManager.localPlayer != null) {
                 GameManager.localPlayer.m_MouseLook.m_cursorIsLocked = true;
                 GameManager.localPlayer.m_MouseLook.SetCursorLock(true);
@@ -57,7 +58,7 @@ namespace UI {
             }
         }
 
-        public void alert(string title, string body, string action, string cancel = "Ayrıl", UnityEvent dismissCallbackAction = null) {
+        public void alert(string title, string body, string action, string cancel = "Ayrıl", UnityEvent actionCallback = null, UnityEvent cancelCallback = null) {
             if (GameManager.localPlayer != null) {
                 GameManager.localPlayer.m_MouseLook.SetCursorLock(false);
                 GameManager.localPlayer.m_MouseLook.m_cursorIsLocked = false;
@@ -73,15 +74,20 @@ namespace UI {
                 _alertCancelTmp.text = cancel;
             }
 
-            if (dismissCallbackAction != null) {
-                callback = dismissCallbackAction;
+            if (actionCallback != null) {
+                this.actionCallback = actionCallback;
             } else {
-                callback = null;
+                this.actionCallback = null;
+            }
+            
+            if (cancelCallback != null) {
+                this.cancelCallback = cancelCallback;
+            } else {
+                this.cancelCallback = null;
             }
         }
 
         public void reloadGame() {
-            PhotonNetwork.Disconnect();
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
