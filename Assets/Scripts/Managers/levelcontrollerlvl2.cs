@@ -10,4 +10,12 @@ public class levelcontrollerlvl2 : MonoBehaviour
         PlayerPrefs.DeleteKey("DroppedObjectNames");
         SceneManager.LoadScene("Level 0");
     }
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            Gobacktolvl0();
+        }
+
+    }
 }
