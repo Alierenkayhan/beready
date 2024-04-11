@@ -9,12 +9,14 @@ public class PickUp : MonoBehaviour
     private bool isDragging = false;
     private Rigidbody rb;
     private Vector3 initialPosition;
+    private Quaternion initialRotation;
     private string[] droppedObjectNames;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
         initialPosition = transform.position;
+        initialRotation = transform.rotation;
 
         CheckAndSetActive();
     }
@@ -96,6 +98,16 @@ public class PickUp : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void OnResetItem()
+    {
+        isDragging = false;
+        rb.angularVelocity = Vector3.zero;
+        rb.velocity = Vector3.zero;
+        transform.position = initialPosition;
+        transform.rotation = initialRotation;
+        gameObject.SetActive(true);
     }
 
 }

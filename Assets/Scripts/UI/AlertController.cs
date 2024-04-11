@@ -24,18 +24,19 @@ namespace UI {
      
 
         public void dismiss() {
-            if (GameManager.activeLevel == 0)
-            {
-                if (_alertBodyTmp.text.StartsWith("Hoşgeldin"))
-                {
-                    alert("Deprem Simülasyonu ", "Şuan lobidesin. İlerde sol tarafta bulunan odalardan belirli seviyelerde deprem simülasyonuna katılabilirsin.", "Tamam", "Ayrıl", callback);
-                    return;
-                }
-            }
+            // print("Dismiss");
+            // if (GameManager.activeLevel == 0)
+            // {
+            //     if (_alertBodyTmp.text.StartsWith("Hoşgeldin"))
+            //     {
+            //         alert("Deprem Simülasyonu ", "Şuan lobidesin. İlerde sol tarafta bulunan odalardan belirli seviyelerde deprem simülasyonuna katılabilirsin.", "Tamam", "Ayrıl", callback);
+            //     }
+            // }
             for (int i = 0; i < transform.childCount; i++) {
                 transform.GetChild(i).gameObject.SetActive(false);
             }
             callback?.Invoke();
+            // print($"Callback fired = {callback}");
             if (GameManager.localPlayer != null) {
                 GameManager.localPlayer.m_MouseLook.m_cursorIsLocked = true;
                 GameManager.localPlayer.m_MouseLook.SetCursorLock(true);
@@ -55,7 +56,30 @@ namespace UI {
             }
         }
 
-        public void alert(string title, string body, string action, string cancel = "Ayrıl", UnityEvent dismissCallbackAction = null) {
+        private void configureGUI(bool withCancel)
+        {
+            if (withCancel)
+            {
+                var _cancel = alertCancel.transform.parent.gameObject.GetComponent<RectTransform>();
+                _cancel.gameObject.SetActive(true);
+                _cancel.anchorMin = new Vector2(0.25f, _cancel.anchorMin.y);
+                _cancel.anchorMax = new Vector2(0.45f, _cancel.anchorMax.y);
+                var _alert = alertAction.transform.parent.gameObject.GetComponent<RectTransform>();
+                _alert.gameObject.SetActive(true);
+                _alert.anchorMin = new Vector2(0.55f, _alert.anchorMin.y);
+                _alert.anchorMax = new Vector2(0.75f, _alert.anchorMax.y);
+            }
+            else
+            {
+                alertCancel.transform.parent.gameObject.SetActive(false);
+                var _alert = alertAction.transform.parent.gameObject.GetComponent<RectTransform>();
+                _alert.gameObject.SetActive(true);
+                _alert.anchorMin = new Vector2(0.4f, _alert.anchorMin.y);
+                _alert.anchorMax = new Vector2(0.6f, _alert.anchorMax.y);
+            }
+        }
+
+        public void alert(string title, string body, string action, string cancel = null, UnityEvent dismissCallbackAction = null) {
             if (GameManager.localPlayer != null) {
                 GameManager.localPlayer.m_MouseLook.SetCursorLock(false);
                 GameManager.localPlayer.m_MouseLook.m_cursorIsLocked = false;
@@ -64,6 +88,7 @@ namespace UI {
                 transform.GetChild(i).gameObject.SetActive(true);
             }
             configure();
+            configureGUI(cancel != null);
             _alertTitleTmp.text = title;
             _alertBodyTmp.text = body;
             _alertActionTmp.text = action;

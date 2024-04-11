@@ -18,16 +18,31 @@ public class resetCurrentLvl : MonoBehaviour
         {
 
             // Leveli sıfırla (istersek 1 olarak ayarlayabiliriz)
-            PlayerPrefs.SetInt("CurrentLevel", 1);
+            // PlayerPrefs.SetInt("CurrentLevel", 1);
+            //
+            // PlayerPrefs.Save();
 
-            PlayerPrefs.Save();
-
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            ResetLevel();
         } else if (Input.GetKeyDown(KeyCode.X))
         {
-            PlayerPrefs.DeleteAll();
-            PlayerPrefs.Save();
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            ResetLevelWithDelete();
         }
+    }
+
+    public void OnRightPrimary()
+    {
+        ResetLevel();
+    }
+
+    public void ResetLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void ResetLevelWithDelete()
+    {
+        PlayerPrefs.DeleteAll();
+        PlayerPrefs.Save();
+        ResetLevel();
     }
 }

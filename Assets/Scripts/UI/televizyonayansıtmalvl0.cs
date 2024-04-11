@@ -7,6 +7,7 @@ using UnityEngine;
 public class televizyonayansıtmalvl0 : MonoBehaviour
 {
     public TMP_Text televizyonTxt;
+    private string previous = "";
 
     void Update()
     {
@@ -16,7 +17,11 @@ public class televizyonayansıtmalvl0 : MonoBehaviour
 
             if (!string.IsNullOrEmpty(droppedObjectName))
             {
-                Debug.Log("Dropped Object Name: " + droppedObjectName);
+                if (previous != droppedObjectName)
+                {
+                    Debug.Log("Dropped Object Name: " + droppedObjectName);
+                    previous = droppedObjectName;
+                }
                 string[] droppedObjectNamesArray = droppedObjectName.Split(',');
 
                 televizyonTxt.text = "";
@@ -25,7 +30,13 @@ public class televizyonayansıtmalvl0 : MonoBehaviour
                 {
                     televizyonTxt.text += item + ", ";
                 }
+            } else {
+                televizyonTxt.text = "";
             }
+        }
+        else
+        {
+            televizyonTxt.text = "";
         }
     }
 }

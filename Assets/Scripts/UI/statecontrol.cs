@@ -37,7 +37,7 @@ public class statecontrol : MonoBehaviour
         // pencereyanıTXT.color = StringToColor(PlayerPrefs.GetString("PencereyanıTXTColor", ""));
         // exitreyanıTXT.color = StringToColor(PlayerPrefs.GetString("ExitreyanıTXTColor", ""));
 
-        masayanıTXT.color = PlayerPrefs.GetInt("masaCrouchDone", 0) + PlayerPrefs.GetInt("masaDone", 0) == 2 ? darkGray : Color.white;
+        masayanıTXT.color = PlayerPrefs.GetInt("masaDone", 0) == 1 ? darkGray : Color.white;
         pencereyanıTXT.color = PlayerPrefs.GetInt("pencereDone", 0) == 1 ? darkGray : Color.white;
         dolapyanıTXT.color = PlayerPrefs.GetInt("dolapDone", 0) == 1 ? darkGray : Color.white;
         exitreyanıTXT.color = PlayerPrefs.GetInt("exitDone", 0) == 1 ? darkGray : Color.white;
@@ -87,21 +87,10 @@ public class statecontrol : MonoBehaviour
         
         if (other.gameObject.CompareTag("live"))
         {
-            if (anim.IsCrouching())
-            {
-                // masayanıTXT.color = Color.grey;
-                // PlayerPrefs.SetString("MasayanıTXTColor", ColorToString(masayanıTXT.color));
-                PlayerPrefs.SetInt("masaCrouchDone", 1);
-                print("Masa crouch");
-                x = true;
-            }
-            else
-            {
-                // masayanıTXT.color = Color.grey;
-                // PlayerPrefs.SetString("MasayanıTXTColor", ColorToString(masayanıTXT.color));
-                PlayerPrefs.SetInt("masaDone", 1);
-                print("Masa");
-            }
+            // masayanıTXT.color = Color.grey;
+            // PlayerPrefs.SetString("MasayanıTXTColor", ColorToString(masayanıTXT.color));
+            PlayerPrefs.SetInt("masaDone", 1);
+            print("Masa");
         }
         if (other.gameObject.CompareTag("dolap"))
         {
@@ -152,8 +141,7 @@ public class statecontrol : MonoBehaviour
 
     private int GetChoiceCount()
     {
-        return PlayerPrefs.GetInt("masaCrouchDone", 0) +
-               PlayerPrefs.GetInt("masaDone", 0) +
+        return PlayerPrefs.GetInt("masaDone", 0) +
                PlayerPrefs.GetInt("pencereDone", 0) +
                PlayerPrefs.GetInt("dolapDone", 0) +
                PlayerPrefs.GetInt("exitDone", 0);
