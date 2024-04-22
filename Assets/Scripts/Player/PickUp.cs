@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -75,6 +76,14 @@ public class PickUp : MonoBehaviour
 
             Debug.Log("Dropped Object Names: " + string.Join(",", droppedObjectNames));
 
+            if (PlayerPrefs.HasKey("Revision") && PlayerPrefs.GetString("Revision") == "true")
+            {
+                var x = PlayerPrefs.GetString("RevisedObjects");
+                var y = x.Split(",").ToList();
+                y.Add(gameObject.name);
+                PlayerPrefs.SetString("RevisedObjects", string.Join(",", y));
+            }
+            PlayerPrefs.Save();
             this.gameObject.SetActive(false);
         }
         else

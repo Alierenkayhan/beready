@@ -2,7 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UI;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
 public class statecontrol : MonoBehaviour
@@ -11,12 +13,25 @@ public class statecontrol : MonoBehaviour
     public TMP_Text dolapyanıTXT;
     public TMP_Text pencereyanıTXT;
     public TMP_Text exitreyanıTXT;
+    public TMP_Text nothingTXT;
     private int count = 0;
 
     private Color darkGray;
     private PlayerAnimatorController anim;
 
-    private Collider other;
+    private Collider other = null;
+    
+    public Earthquake earthquake;
+    private bool depremStart = false;
+
+    public bool tookNoCover = false;
+    private bool noCoverFeedbackShown = false;
+    
+    public AlertController alert;
+
+    public GameManager manager;
+    
+    UnityEvent e = new UnityEvent();
 
     private void Awake()
     {
@@ -30,6 +45,10 @@ public class statecontrol : MonoBehaviour
         //PlayerPrefs.DeleteAll();
         // PlayerPrefs'ten kaydedilen count değerini al
         count = GetChoiceCount();
+        
+        
+        e.RemoveAllListeners();
+        e.AddListener(RestartLevel);
 
         // PlayerPrefs'ten kaydedilen renk değerlerini al
         // masayanıTXT.color = StringToColor(PlayerPrefs.GetString("MasayanıTXTColor", ""));
@@ -41,15 +60,74 @@ public class statecontrol : MonoBehaviour
         pencereyanıTXT.color = PlayerPrefs.GetInt("pencereDone", 0) == 1 ? darkGray : Color.white;
         dolapyanıTXT.color = PlayerPrefs.GetInt("dolapDone", 0) == 1 ? darkGray : Color.white;
         exitreyanıTXT.color = PlayerPrefs.GetInt("exitDone", 0) == 1 ? darkGray : Color.white;
+        nothingTXT.color = PlayerPrefs.GetInt("nothingDone", 0) == 1 ? darkGray : Color.white;
 
         StartCoroutine(doOncePerSecond());
     }
 
-    private void Update()
+    private void RestartLevel()
     {
-        if (count == 5)
+        if (count < 5)
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);  
+        }
+        else
         {
             SceneManager.LoadScene("Level 2");
+        }
+    }
+    
+    private void check()
+    {
+        var x = EvaluateAnswer();
+        print($"Evaluate answer {x} is given");
+        if (x == "masa")
+        {
+            alert.alert("Seçim",
+                "Yaptığın seçim fena değildi. Uzmanlar sabitlenmiş eşyaların yanına çökülmesini ve tutunmayı öneriyor.",
+                "Tamam", dismissCallbackAction: e);
+        }
+        else if (x == "dolap")
+        {
+            alert.alert("Seçim",
+                "Yaptığın seçim uzmanlar tarafından önerilmiyor. Sabitlenmemiş eşyalar üzerine düşebilir ve sana zarar verebilir.",
+                "Tamam", dismissCallbackAction: e);
+        }
+        else if (x == "pencere")
+        {
+            alert.alert("Seçim",
+                "Yaptığın seçim uzmanlar tarafından önerilmiyor. Deprem esnasında pencerelerin kırılma ve cam parçaları ile seni yaralama riski var. Aynı zamanda sarsıntıdan aşağı düşebilirsin.",
+                "Tamam", dismissCallbackAction: e);
+        }
+        else if (x == "exit")
+        {
+            alert.alert("Seçim",
+                "Yaptığın seçim uzmanlar tarafından önerilmiyor. Deprem esnasında merdiven inmek veya asansöre binmek tehlikeli olabilir. Deprem durunca bina terk edilmelidir.",
+                "Tamam", dismissCallbackAction: e);
+        }
+        else
+        {
+            alert.alert("Seçim",
+                "Güvensiz yerde durmak uzmanlar tarafından önerilmiyor. En yakın güvenli yere çökmeli ve bir yere tutunmalısın.",
+                "Tamam", dismissCallbackAction: e);
+        }
+        // if (control.EvaluateAnswer())
+        // {
+        //     feedbackTrue.SetActive(true);
+        // }
+        // else
+        // {
+        //     feedbackFalse.SetActive(true);
+        // }
+    }
+
+    private void Update()
+    {
+        if (!depremStart && earthquake.isShakeStart)
+        {
+            print("Masayanı script Check answers started");
+            check();
+            depremStart = true;
         }
         // Debug.Log(count);
     }
@@ -80,10 +158,19 @@ public class statecontrol : MonoBehaviour
         }
     }
 
-    public bool EvaluateAnswer()
+    public string EvaluateAnswer()
     {
-        print($"Statecontrol answer evaluation with other object {other.gameObject.name}");
-        bool x = false;
+        string x = "";
+
+        if (other == null)
+        {
+            print("stay");
+            x = "stay";
+            
+            PlayerPrefs.SetInt("nothingDone", 1);
+            PlayerPrefs.Save();
+            return x;
+        }
         
         if (other.gameObject.CompareTag("live"))
         {
@@ -91,6 +178,7 @@ public class statecontrol : MonoBehaviour
             // PlayerPrefs.SetString("MasayanıTXTColor", ColorToString(masayanıTXT.color));
             PlayerPrefs.SetInt("masaDone", 1);
             print("Masa");
+            x = "masa";
         }
         if (other.gameObject.CompareTag("dolap"))
         {
@@ -98,6 +186,7 @@ public class statecontrol : MonoBehaviour
             // PlayerPrefs.SetString("DolapyanıTXTColor", ColorToString(dolapyanıTXT.color));
             PlayerPrefs.SetInt("dolapDone", 1);
             print("Dolap");
+            x = "dolap";
         }
         if (other.gameObject.CompareTag("pencere"))
         {
@@ -105,6 +194,7 @@ public class statecontrol : MonoBehaviour
             // PlayerPrefs.SetString("PencereyanıTXTColor", ColorToString(pencereyanıTXT.color));
             PlayerPrefs.SetInt("pencereDone", 1);
             print("Pencere");
+            x = "pencere";
         }
         if (other.gameObject.CompareTag("exit"))
         {
@@ -112,7 +202,10 @@ public class statecontrol : MonoBehaviour
             // PlayerPrefs.SetString("ExitreyanıTXTColor", ColorToString(exitreyanıTXT.color));
             PlayerPrefs.SetInt("exitDone", 1);
             print("exit");
+            x = "exit";
         }
+        
+        print(other.gameObject);
         
         count = GetChoiceCount();
         print(count);
@@ -144,6 +237,7 @@ public class statecontrol : MonoBehaviour
         return PlayerPrefs.GetInt("masaDone", 0) +
                PlayerPrefs.GetInt("pencereDone", 0) +
                PlayerPrefs.GetInt("dolapDone", 0) +
-               PlayerPrefs.GetInt("exitDone", 0);
+               PlayerPrefs.GetInt("exitDone", 0) +
+               PlayerPrefs.GetInt("nothingDone", 0);
     }
 }

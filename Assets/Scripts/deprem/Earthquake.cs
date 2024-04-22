@@ -1,6 +1,10 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class Earthquake : MonoBehaviour
 {
@@ -9,15 +13,37 @@ public class Earthquake : MonoBehaviour
     public float shakeSpeed = 5f;  // Titreme hızı
     public float startTime = 15f;  // Titreme hızı
     public bool isShakeStart = false;
+    public resetCurrentLvl manager;
+    public AlertController2 alert2;
+    public TMP_Text text;
 
     void Start()
     {
-        Invoke("StartEarthquake", startTime);
-        isShakeStart = false;
+        if (!PlayerPrefs.HasKey("OngoingEarthquake"))
+        {
+            PlayerPrefs.SetString("OngoingEarthquake", "false");
+            PlayerPrefs.Save();
+        }
+        if (PlayerPrefs.GetString("OngoingEarthquake") == "true")
+        {
+            Invoke("StartEarthquake", startTime);
+            isShakeStart = false;
+            text.text = "Yeniden başlamak için R ye basın";
+        }
+    }
+
+    public void DoEarthquake()
+    {
+        // Invoke("StartEarthquake", startTime);
+        // isShakeStart = false;
+        PlayerPrefs.SetString("OngoingEarthquake", "true");
+        PlayerPrefs.Save();
+        manager.ResetLevel();
     }
 
     void StartEarthquake()
     {
+        PlayerPrefs.Save();
         startTime = Time.time;
         isShakeStart = true;
         InvokeRepeating("ShakeObjects", 0f, 0.1f); 
@@ -27,6 +53,15 @@ public class Earthquake : MonoBehaviour
     void StopEarthquake()
     {
         CancelInvoke("ShakeObjects");
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.E) && PlayerPrefs.GetString("OngoingEarthquake") == "false")
+        {
+            alert2.gameObject.SetActive(true);
+            Invoke(nameof(DoEarthquake), 5f);
+        }
     }
 
     void ShakeObjects()

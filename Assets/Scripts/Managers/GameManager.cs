@@ -84,6 +84,13 @@ public class GameManager : MonoBehaviour
 
     private void Start() {
         if(!skipRBProcessing) ReloadSceneRigidbodies();
+
+        localPlayer = GetAllSceneGameObjectsByName("Player", 0, false)[0].GetComponent<FirstPersonController>();
+    }
+
+    private void OnEnable()
+    {
+        localPlayer = GetAllSceneGameObjectsByName("Player", 0, false)[0].GetComponent<FirstPersonController>();
     }
 
     private void Update() {

@@ -42,6 +42,25 @@ namespace UI {
                 GameManager.localPlayer.m_MouseLook.SetCursorLock(true);
             }
         }
+        
+        public void dismissWithoutCancel() {
+            // print("Dismiss");
+            // if (GameManager.activeLevel == 0)
+            // {
+            //     if (_alertBodyTmp.text.StartsWith("Hoşgeldin"))
+            //     {
+            //         alert("Deprem Simülasyonu ", "Şuan lobidesin. İlerde sol tarafta bulunan odalardan belirli seviyelerde deprem simülasyonuna katılabilirsin.", "Tamam", "Ayrıl", callback);
+            //     }
+            // }
+            for (int i = 0; i < transform.childCount; i++) {
+                transform.GetChild(i).gameObject.SetActive(false);
+            }
+            // print($"Callback fired = {callback}");
+            if (GameManager.localPlayer != null) {
+                GameManager.localPlayer.m_MouseLook.m_cursorIsLocked = true;
+                GameManager.localPlayer.m_MouseLook.SetCursorLock(true);
+            }
+        }
 
         private void configure() {
             if (!_configured) {
