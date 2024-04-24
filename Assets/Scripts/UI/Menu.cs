@@ -7,7 +7,8 @@ public class Menu : MonoBehaviour
 {
     private void OnEnable()
     {
-        PlayerPrefs.DeleteKey("DroppedObjectNames");
+        PlayerPrefs.DeleteAll();
+        PlayerPrefs.Save();
     }
     public void startGame()
     {

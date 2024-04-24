@@ -7,6 +7,7 @@ using UnityEngine;
 
 public class televizyonayansıtmalvl0 : MonoBehaviour
 {
+    public TMP_Text informationTxt;
     public TMP_Text televizyonTxt;
     private string previous = "";
     private bool revision = false;
@@ -14,15 +15,11 @@ public class televizyonayansıtmalvl0 : MonoBehaviour
     
     private string[] required = {"Pil", "Su", "Telsiz", "İlaç", "Kibrit", "Fener", "Konserve", "Oyuncak"};
 
-    private List<string> items = new List<string>();
+    private List<string> items = new() {"Pil", "Su", "Telsiz", "İlaç", "Kibrit", "Fener", "Konserve", "Oyuncak"};
 
     private void Start()
     {
-        if (PlayerPrefs.HasKey("Revision"))
-        {
-            revision = true;
-        }
-        else
+        if (!PlayerPrefs.HasKey("Revision"))
         {
             PlayerPrefs.SetString("Revision", "false");
             
@@ -30,15 +27,28 @@ public class televizyonayansıtmalvl0 : MonoBehaviour
             
             PlayerPrefs.DeleteKey("DroppedObjectNames");
             PlayerPrefs.Save();
-
-            items = required.ToList();
         }
+
+        if (PlayerPrefs.GetString("Revision") == "true")
+        {
+            revision = true;
+            informationTxt.gameObject.SetActive(false);
+            print("Revision true");
+        } else if (PlayerPrefs.GetString("Revision") == "false")
+        {
+            revision = false;
+            informationTxt.gameObject.SetActive(true);
+            print("Revision false");
+        }
+        
+        print(PlayerPrefs.GetString("RevisedObjects"));
+        print(string.Join(",", items));
         
     }
 
     void Update()
     {
-        if (PlayerPrefs.HasKey("Revision") && PlayerPrefs.GetString("Revision") == "false")
+        if (PlayerPrefs.GetString("Revision") == "false")
         {
             if (PlayerPrefs.HasKey("DroppedObjectNames"))
             {
@@ -79,8 +89,6 @@ public class televizyonayansıtmalvl0 : MonoBehaviour
             if (items.Count <= 0)
             {
                 televizyonTxt.text = "Tebrikler, eğitimi tamamladınız!";
-                
-                //TODO: Tleevizyonun üstünde gerekli eşyalar diye ayrı bir text var, o revision yapılırken kapatılmalı veya değiştirilmeli
             }
         }
         
