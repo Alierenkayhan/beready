@@ -22,38 +22,38 @@ public class PickUp : MonoBehaviour
         CheckAndSetActive();
     }
 
-    private void OnMouseDown()
-    {
-        isDragging = true;
-    }
-
-    private void OnMouseUp()
-    {
-        if (isDragging)
-        {
-            isDragging = false;
-        }
-    }
-
-    private void Update()
-    {
-        if (isDragging)
-        {
-            DragObject();
-        }
-    }
-
-    private void DragObject()
-    {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-
-        if (Physics.Raycast(ray, out hit))
-        {
-            Vector3 targetPosition = new Vector3(hit.point.x, hit.point.y, hit.point.z);
-            rb.MovePosition(Vector3.Lerp(rb.position, targetPosition, Time.deltaTime * 10f));
-        }
-    }
+    // private void OnMouseDown()
+    // {
+    //     isDragging = true;
+    // }
+    //
+    // private void OnMouseUp()
+    // {
+    //     if (isDragging)
+    //     {
+    //         isDragging = false;
+    //     }
+    // }
+    //
+    // private void Update()
+    // {
+    //     if (isDragging)
+    //     {
+    //         DragObject();
+    //     }
+    // }
+    //
+    // private void DragObject()
+    // {
+    //     Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+    //     RaycastHit hit;
+    //
+    //     if (Physics.Raycast(ray, out hit))
+    //     {
+    //         Vector3 targetPosition = new Vector3(hit.point.x, hit.point.y, hit.point.z);
+    //         rb.MovePosition(Vector3.Lerp(rb.position, targetPosition, Time.deltaTime * 10f));
+    //     }
+    // }
 
     private void OnTriggerEnter(Collider other)
     {

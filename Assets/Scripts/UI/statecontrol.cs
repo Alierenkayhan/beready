@@ -20,6 +20,7 @@ public class statecontrol : MonoBehaviour
     private PlayerAnimatorController anim;
 
     private Collider other = null;
+    public string otherBinding = null;
     
     public Earthquake earthquake;
     private bool depremStart = false;
@@ -141,28 +142,11 @@ public class statecontrol : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider o)
-    {
-        // Debug.Log(collision.gameObject.tag);
-
-        // PlayerPrefs.SetInt("MasayaniCount", count);
-
-        other = o;
-    }
-
-    private void OnTriggerExit(Collider o)
-    {
-        if (other == o)
-        {
-            other = null;
-        }
-    }
-
     public string EvaluateAnswer()
     {
         string x = "";
 
-        if (other == null)
+        if (otherBinding == null)
         {
             print("stay");
             x = "stay";
@@ -172,7 +156,7 @@ public class statecontrol : MonoBehaviour
             return x;
         }
         
-        if (other.gameObject.CompareTag("live"))
+        if (otherBinding == "live")
         {
             // masayanıTXT.color = Color.grey;
             // PlayerPrefs.SetString("MasayanıTXTColor", ColorToString(masayanıTXT.color));
@@ -180,7 +164,7 @@ public class statecontrol : MonoBehaviour
             print("Masa");
             x = "masa";
         }
-        if (other.gameObject.CompareTag("dolap"))
+        if (otherBinding == "dolap")
         {
             // dolapyanıTXT.color = Color.grey;
             // PlayerPrefs.SetString("DolapyanıTXTColor", ColorToString(dolapyanıTXT.color));
@@ -188,7 +172,7 @@ public class statecontrol : MonoBehaviour
             print("Dolap");
             x = "dolap";
         }
-        if (other.gameObject.CompareTag("pencere"))
+        if (otherBinding == "pencere")
         {
             // pencereyanıTXT.color = Color.grey;
             // PlayerPrefs.SetString("PencereyanıTXTColor", ColorToString(pencereyanıTXT.color));
@@ -196,7 +180,7 @@ public class statecontrol : MonoBehaviour
             print("Pencere");
             x = "pencere";
         }
-        if (other.gameObject.CompareTag("exit"))
+        if (otherBinding == "exit")
         {
             // exitreyanıTXT.color = Color.grey;
             // PlayerPrefs.SetString("ExitreyanıTXTColor", ColorToString(exitreyanıTXT.color));
@@ -205,7 +189,7 @@ public class statecontrol : MonoBehaviour
             x = "exit";
         }
         
-        print(other.gameObject);
+        print(otherBinding);
         
         count = GetChoiceCount();
         print(count);
