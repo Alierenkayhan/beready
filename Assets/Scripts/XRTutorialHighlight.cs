@@ -20,8 +20,12 @@ public class XRTutorialHighlight : MonoBehaviour
 
     public AlertController controller;
 
+    public GameObject cubeObject;
+
     private void Start()
     {
+        print("Testing");
+        cubeObject.SetActive(false);
         startButton.SetActive(false);
         var n = new UnityEvent();
         n.RemoveAllListeners();
@@ -54,6 +58,8 @@ public class XRTutorialHighlight : MonoBehaviour
         n.RemoveAllListeners();
         n.AddListener(MoveGrabbedItem);
         HighlightObjects(rightBumper, leftBumper);
+        print("enabled cube");
+        cubeObject.SetActive(true);
         controller.alert("Tutorial", "Bir Bumper butonu ile bir objeyi tut.", "Ok", dismissCallbackAction:n);
     }
     
@@ -69,6 +75,7 @@ public class XRTutorialHighlight : MonoBehaviour
     public void OnPlayReady()
     {
         startButton.SetActive(true);
+        print("Play ready");
     }
 
     private void HighlightObjects(GameObject gameObject1, GameObject gameObject2 = null, GameObject gameObject3 = null, GameObject gameObject4 = null)
