@@ -1,4 +1,5 @@
 using UI;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
@@ -26,7 +27,16 @@ public class Lvl0To1 : MonoBehaviour
             controller.alert("Sıfırla", "Eşyalar sıfırlanacak. Kabul ediyor musunuz?", "Sıfırla", "İptal", itemResetEvent);
         } else if (other.name == "IletisimTrigger")
         {
-            controller.alert("İletişim", "Tanıdıkların arasında ortak bir iletişim kişisi belirleyeceksin. Acil durum anında, bu kişi herkesin durumundan haberdar olacak ve gereken koordinasyonu sağlayacak.", "Tamam");
+            var x = new UnityEvent();
+            x.RemoveAllListeners();
+            x.AddListener(AddContactPerson);
+            controller.alert("İletişim", "Tanıdıkların arasında ortak bir iletişim kişisi belirleyeceksin. Acil durum anında, bu kişi herkesin durumundan haberdar olacak ve gereken koordinasyonu sağlayacak.", "Tamam", dismissCallbackAction:x);
         }
+    }
+
+    public void AddContactPerson()
+    {
+        PlayerPrefs.SetInt("ContactPerson", 1);
+        PlayerPrefs.Save();
     }
 }

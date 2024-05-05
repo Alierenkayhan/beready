@@ -88,7 +88,16 @@ public class televizyonayansıtmalvl0 : MonoBehaviour
 
             if (items.Count <= 0)
             {
-                televizyonTxt.text = "Tebrikler, eğitimi tamamladınız!";
+                if (PlayerPrefs.HasKey("ContactPerson"))
+                {
+                    if (PlayerPrefs.GetInt("ContactPerson", 0) == 1)
+                    {
+                        televizyonTxt.text = "Tebrikler, eğitimi tamamladınız!";
+                        return;
+                    }
+                }
+                
+                televizyonTxt.text = "İletişim kişisi belirlemelisiniz.";
             }
         }
         
