@@ -88,12 +88,9 @@ public class needUI : MonoBehaviour
     {
         for (int i = 0; i < itemsObject.transform.childCount; i++)
         {
-            if (itemsObject.transform.GetChild(i).gameObject.name == "firstaid")
-            {
-                continue;
-            }
             if (itemsObject.transform.GetChild(i).gameObject.activeSelf)
             {
+                print($"The object {itemsObject.transform.GetChild(i).gameObject.name} is active");
                 return false;
             }
         }

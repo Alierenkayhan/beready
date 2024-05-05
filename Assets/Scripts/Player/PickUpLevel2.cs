@@ -17,7 +17,7 @@ public class PickUpLevel2 : MonoBehaviour
     
     
 
-    private void Start()
+    private void Awake()
     {
         needs = GameObject.Find("Managers").transform.GetChild(3).GetComponent<needUI>();
         print($"Added needUI object {needs.name}");
@@ -26,7 +26,7 @@ public class PickUpLevel2 : MonoBehaviour
         initialPosition = transform.position;
         initialRotation = transform.rotation;
 
-        // CheckAndSetActive();
+        CheckAndSetActive();
     }
 
     // private void OnMouseDown()
