@@ -68,8 +68,21 @@ public class PickUpLevel2 : MonoBehaviour
         {
             needs.items.Remove(gameObject.name);
             gameObject.transform.SetParent(parent);
-            print($"{gameObject.name} added, {string.Join(", ", needs.items)} remaining");
-            gameObject.SetActive(false);
+            // print($"{gameObject.name} added, {string.Join(", ", needs.items)} remaining");
+            bool fin = true;
+            for (int i = 0; i < transform.parent.childCount; i++)
+            {
+                if (transform.parent.GetChild(i).gameObject.activeSelf)
+                {
+                    print($"The object {transform.parent.GetChild(i).gameObject.name} is active");
+                    fin = false;
+                }
+            }
+
+            if (fin)
+            {
+                print("Should have been sent to lvl0");
+            }
         }
     }
 
