@@ -63,29 +63,12 @@ public class needUI : MonoBehaviour
     // }
     void Update()
     {
-        if (Input.GetMouseButtonDown(0)) 
+        if (IsAllItemsPicked())
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-
-            if (Physics.Raycast(ray, out hit))
-            {
-                if (hit.collider.gameObject.CompareTag("firstaidkit"))
-                {
-                    hit.collider.gameObject.SetActive(false);
-
-                    items.Remove(hit.collider.gameObject.name);
-                    text.text = "İhtiyacın olanlar:\n\n" + string.Join(", ", items);
-                }            
-            }
-
-            if (IsAllItemsPicked())
-            {
-                var n = new UnityEvent();
-                n.RemoveAllListeners();
-                n.AddListener(SwapToLevel0);
-                alert.alert("Deprem çantası", "Deprem çantanda eksik veya gereksiz eşyalar var. Geri dönüp gözden geçirmelisin.", "Tamam", dismissCallbackAction: n);
-            }
+            var n = new UnityEvent();
+            n.RemoveAllListeners();
+            n.AddListener(SwapToLevel0);
+            alert.alert("Deprem çantası", "Deprem çantanda eksik veya gereksiz eşyalar var. Geri dönüp gözden geçirmelisin.", "Tamam", dismissCallbackAction: n);
         }
     }
 
@@ -101,6 +84,10 @@ public class needUI : MonoBehaviour
     {
         for (int i = 0; i < itemsObject.transform.childCount; i++)
         {
+            if (itemsObject.transform.GetChild(i).gameObject.name == "firstaid")
+            {
+                continue;
+            }
             if (itemsObject.transform.GetChild(i).gameObject.activeSelf)
             {
                 return false;
