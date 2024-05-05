@@ -307,6 +307,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2209090487580510702, guid: 910fa6fae56840149beeba1ee78e0663, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2580589192884803385, guid: 910fa6fae56840149beeba1ee78e0663, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -550,12 +554,12 @@ MonoBehaviour:
   cubeObject: {fileID: 1444078354}
 --- !u!1 &60138843 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 1507473762503960689, guid: 910fa6fae56840149beeba1ee78e0663, type: 3}
+  m_CorrespondingSourceObject: {fileID: 1274567812005243335, guid: 910fa6fae56840149beeba1ee78e0663, type: 3}
   m_PrefabInstance: {fileID: 60138839}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &60138844 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 2014225941728020568, guid: 910fa6fae56840149beeba1ee78e0663, type: 3}
+  m_CorrespondingSourceObject: {fileID: 2209090487580510702, guid: 910fa6fae56840149beeba1ee78e0663, type: 3}
   m_PrefabInstance: {fileID: 60138839}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &60138845 stripped
