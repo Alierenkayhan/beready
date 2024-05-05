@@ -26,7 +26,7 @@ public class PickUpLevel2 : MonoBehaviour
         initialPosition = transform.position;
         initialRotation = transform.rotation;
 
-        CheckAndSetActive();
+        // CheckAndSetActive();
     }
 
     // private void OnMouseDown()
