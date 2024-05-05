@@ -86,11 +86,10 @@ public class needUI : MonoBehaviour
 
     private bool IsAllItemsPicked()
     {
-        for (int i = 0; i < itemsObject.transform.childCount; i++)
+        foreach (Transform tf in itemsObject.transform)
         {
-            if (itemsObject.transform.GetChild(i).gameObject.activeInHierarchy)
+            if (tf.gameObject.activeSelf)
             {
-                // print($"The object {itemsObject.transform.GetChild(i).gameObject.name} is active");
                 return false;
             }
         }
