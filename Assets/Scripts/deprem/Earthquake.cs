@@ -41,7 +41,7 @@ public class Earthquake : MonoBehaviour
         manager.ResetLevel();
     }
 
-    void StartEarthquake()
+    public void StartEarthquake()
     {
         PlayerPrefs.Save();
         startTime = Time.time;
@@ -50,7 +50,7 @@ public class Earthquake : MonoBehaviour
         Invoke("StopEarthquake", duration);
     }
 
-    void StopEarthquake()
+    public void StopEarthquake()
     {
         CancelInvoke("ShakeObjects");
     }

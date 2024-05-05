@@ -12,10 +12,12 @@ public class PickUp : MonoBehaviour
     private Vector3 initialPosition;
     private Quaternion initialRotation;
     private string[] droppedObjectNames;
+    private Transform parent;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
+        parent = transform.parent;
         initialPosition = transform.position;
         initialRotation = transform.rotation;
 
@@ -84,7 +86,8 @@ public class PickUp : MonoBehaviour
                 PlayerPrefs.SetString("RevisedObjects", string.Join(",", y));
             }
             PlayerPrefs.Save();
-            this.gameObject.SetActive(false);
+            gameObject.transform.SetParent(parent);
+            gameObject.SetActive(false);
         }
         else
         {

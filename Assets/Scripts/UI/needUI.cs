@@ -5,7 +5,6 @@ using UI;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
-using static UnityEditor.Progress;
 
 public class needUI : MonoBehaviour
 {
