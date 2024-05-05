@@ -83,6 +83,8 @@ public class PickUpLevel2 : MonoBehaviour
             {
                 print("Should have been sent to lvl0");
             }
+            
+            gameObject.SetActive(false);
         }
     }
 
