@@ -156,7 +156,7 @@ public class statecontrol : MonoBehaviour
             return x;
         }
         
-        if (otherBinding == "live")
+        if (otherBinding == "live" || otherBinding == "masa")
         {
             // masayanıTXT.color = Color.grey;
             // PlayerPrefs.SetString("MasayanıTXTColor", ColorToString(masayanıTXT.color));

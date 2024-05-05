@@ -54,13 +54,10 @@ public class XRTutorialHighlight : MonoBehaviour
     
     public void GrabItem()
     {
-        var n = new UnityEvent();
-        n.RemoveAllListeners();
-        n.AddListener(MoveGrabbedItem);
         HighlightObjects(rightBumper, leftBumper);
         print("enabled cube");
         cubeObject.SetActive(true);
-        controller.alert("Tutorial", "Bir Bumper butonu ile bir objeyi tut.", "Ok", dismissCallbackAction:n);
+        controller.alert("Tutorial", "Bir Bumper butonu ile bir objeyi tut.", "Ok");
     }
     
     public void MoveGrabbedItem()
