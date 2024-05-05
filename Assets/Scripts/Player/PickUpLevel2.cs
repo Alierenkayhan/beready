@@ -20,6 +20,7 @@ public class PickUpLevel2 : MonoBehaviour
     private void Start()
     {
         needs = GameObject.Find("Managers").transform.GetChild(3).GetComponent<needUI>();
+        print($"Added needUI object {needs.name}");
         rb = GetComponent<Rigidbody>();
         parent = transform.parent;
         initialPosition = transform.position;
@@ -67,6 +68,7 @@ public class PickUpLevel2 : MonoBehaviour
         {
             needs.items.Remove(gameObject.name);
             gameObject.transform.SetParent(parent);
+            print($"{gameObject.name} added, {string.Join(", ", needs.items)} remaining");
             gameObject.SetActive(false);
         }
     }

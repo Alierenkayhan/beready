@@ -31,7 +31,7 @@ public class needUI : MonoBehaviour
 
     void Start()
     {
-        textEkraniGameObject.SetActive(false);
+        // textEkraniGameObject.SetActive(false);
         end.SetActive(false);
         text.text = "İhtiyacın olanlar:\n\n" + string.Join(", ", required);
         items.AddRange(required);

@@ -6935,6 +6935,10 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1384406497164079473, guid: 910fa6fae56840149beeba1ee78e0663, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2756932477862574681, guid: 910fa6fae56840149beeba1ee78e0663, type: 3}
       propertyPath: m_SizeDelta.x
       value: 0
@@ -7073,6 +7077,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8361693597754578939, guid: 910fa6fae56840149beeba1ee78e0663, type: 3}
       propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8813792492000657566, guid: 910fa6fae56840149beeba1ee78e0663, type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
@@ -55542,6 +55550,7 @@ MonoBehaviour:
   fare: {fileID: 1843937074}
   itemsObject: {fileID: 1573434816}
   alert: {fileID: 1324025693}
+  items: []
 --- !u!1 &1841100889
 GameObject:
   m_ObjectHideFlags: 0
