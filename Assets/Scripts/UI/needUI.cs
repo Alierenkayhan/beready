@@ -27,7 +27,7 @@ public class needUI : MonoBehaviour
 
     private string[] required = {"Pil", "Su", "Telsiz", "İlaç", "Kibrit", "Fener", "Konserve", "Oyuncak"};
 
-    private List<string> items = new List<string>();
+    public List<string> items = new List<string>();
 
     void Start()
     {
@@ -69,6 +69,10 @@ public class needUI : MonoBehaviour
             n.RemoveAllListeners();
             n.AddListener(SwapToLevel0);
             alert.alert("Deprem çantası", "Deprem çantanda eksik veya gereksiz eşyalar var. Geri dönüp gözden geçirmelisin.", "Tamam", dismissCallbackAction: n);
+        }
+        else
+        {
+            text.text = "İhtiyacın olanlar:\n\n" + string.Join(", ", items);
         }
     }
 

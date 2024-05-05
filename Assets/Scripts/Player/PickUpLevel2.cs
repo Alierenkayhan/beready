@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -12,8 +13,13 @@ public class PickUpLevel2 : MonoBehaviour
     private string[] droppedObjectNames;
     private Transform parent;
 
+    private needUI needs;
+    
+    
+
     private void Start()
     {
+        needs = GameObject.Find("Managers").transform.GetChild(3).GetComponent<needUI>();
         rb = GetComponent<Rigidbody>();
         parent = transform.parent;
         initialPosition = transform.position;
@@ -59,43 +65,9 @@ public class PickUpLevel2 : MonoBehaviour
     {
         if (other.CompareTag("firstaidkit"))
         {
-            if (SceneManager.GetActiveScene().name == "Level 2")
-            {
-                gameObject.transform.SetParent(parent);
-                gameObject.SetActive(false);
-                return;
-            }
-            if (PlayerPrefs.HasKey("DroppedObjectNames"))
-            {
-                string savedNames = PlayerPrefs.GetString("DroppedObjectNames");
-                droppedObjectNames = savedNames.Split(',');
-            }
-            else
-            {
-                droppedObjectNames = new string[0];
-            }
-
-            Array.Resize(ref droppedObjectNames, droppedObjectNames.Length + 1);
-            droppedObjectNames[droppedObjectNames.Length - 1] = this.gameObject.name;
-
-            PlayerPrefs.SetString("DroppedObjectNames", string.Join(",", droppedObjectNames));
-
-            Debug.Log("Dropped Object Names: " + string.Join(",", droppedObjectNames));
-
-            if (PlayerPrefs.HasKey("Revision") && PlayerPrefs.GetString("Revision") == "true")
-            {
-                var x = PlayerPrefs.GetString("RevisedObjects");
-                var y = x.Split(",").ToList();
-                y.Add(gameObject.name);
-                PlayerPrefs.SetString("RevisedObjects", string.Join(",", y));
-            }
-            PlayerPrefs.Save();
+            needs.items.Remove(gameObject.name);
             gameObject.transform.SetParent(parent);
             gameObject.SetActive(false);
-        }
-        else
-        {
-            transform.position = initialPosition;
         }
     }
 
