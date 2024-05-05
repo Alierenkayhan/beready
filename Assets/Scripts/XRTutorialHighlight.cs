@@ -25,7 +25,7 @@ public class XRTutorialHighlight : MonoBehaviour
     private void Start()
     {
         cubeObject.SetActive(false);
-        // startButton.SetActive(false);
+        startButton.SetActive(false);
         var n = new UnityEvent();
         n.RemoveAllListeners();
         n.AddListener(TurnAround);

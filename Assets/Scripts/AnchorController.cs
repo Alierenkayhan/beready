@@ -35,18 +35,18 @@ public class AnchorController : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        if (string.IsNullOrEmpty(CheckString))
-        {
-            if (Input.GetKeyDown(KeyCode.J))
-            {
-                PlayerPrefs.SetInt("masaDone", 1);
-                PlayerPrefs.SetInt("pencereDone", 1);
-                PlayerPrefs.SetInt("dolapDone", 1);
-                PlayerPrefs.SetInt("nothingDone", 1);
-                PlayerPrefs.Save();
-            }
-        }
-    }
+    // private void Update()
+    // {
+    //     if (string.IsNullOrEmpty(CheckString))
+    //     {
+    //         if (Input.GetKeyDown(KeyCode.J))
+    //         {
+    //             PlayerPrefs.SetInt("masaDone", 1);
+    //             PlayerPrefs.SetInt("pencereDone", 1);
+    //             PlayerPrefs.SetInt("dolapDone", 1);
+    //             PlayerPrefs.SetInt("nothingDone", 1);
+    //             PlayerPrefs.Save();
+    //         }
+    //     }
+    // }
 }
