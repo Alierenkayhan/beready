@@ -11,15 +11,29 @@ public class XRAlertDisplay : MonoBehaviour
     public resetPickedItems p;
     public UnityEvent itemResetEvent;
     public statecontrol Statecontrol;
+    public GameObject personFoto;
 
     public void L0NextLevel()
     {
-        SceneManager.LoadScene("Level 1");
+        string contact_secondTime = PlayerPrefs.GetString("SecondTime");
+
+        if (contact_secondTime == "true")
+        {
+            PlayerPrefs.SetString("SecondTimes", "false");
+            SceneManager.LoadScene("Level 2");
+        }
+        else
+        {
+            SceneManager.LoadScene("Level 1");
+        }
     }
-    
+
     public void L0ContactPerson()
     {
-        controller.alert("İletişim", "Tanıdıkların arasında ortak bir iletişim kişisi belirleyeceksin. Acil durum anında, bu kişi herkesin durumundan haberdar olacak ve gereken koordinasyonu sağlayacak.", "Tamam");
+        controller.alert("Acil Durumda Aranılacak Kişi","Adı = İlyas\nYakınlık = Baba\nTelefon = (507) 654-3210", "Tamam");
+        PlayerPrefs.SetString("ContactPerson", "true");
+
+        personFoto.SetActive(true);
     }
     
     public void L0ResetItems()

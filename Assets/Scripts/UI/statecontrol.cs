@@ -127,8 +127,9 @@ public class statecontrol : MonoBehaviour
         if (!depremStart && earthquake.isShakeStart)
         {
             print("Masayanı script Check answers started");
+
+            depremStart = true;           
             check();
-            depremStart = true;
         }
         // Debug.Log(count);
     }
