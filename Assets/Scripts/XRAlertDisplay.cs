@@ -44,7 +44,12 @@ public class XRAlertDisplay : MonoBehaviour
         }
         itemResetEvent.RemoveAllListeners();
         itemResetEvent.AddListener(p.Reset);
+
+
         controller.alert("Sıfırla", "Eşyalar sıfırlanacak. Kabul ediyor musunuz?", "Sıfırla", "İptal", itemResetEvent);
+
+        personFoto.SetActive(false);
+
     }
 
     public void L1SelectMasa()
