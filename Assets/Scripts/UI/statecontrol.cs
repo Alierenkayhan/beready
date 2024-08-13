@@ -74,7 +74,7 @@ public class statecontrol : MonoBehaviour
         }
         else
         {
-            SceneManager.LoadScene("Level 2");
+            SceneManager.LoadScene("Lvl1-2");
         }
     }
     
