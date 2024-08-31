@@ -9,11 +9,6 @@ namespace Rewrite.Level0
     {
         public TMP_Text informationTxt;
 
-        private void Start()
-        {
-            throw new NotImplementedException();
-        }
-
         public void displayItems(List<string> l)
         {
             var x = string.Join(", ", l);

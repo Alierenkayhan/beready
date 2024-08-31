@@ -16,7 +16,13 @@ namespace UI
                 var x = items.transform.GetChild(i).gameObject;
                 if(x.TryGetComponent(out PickUp p))
                 {
-                    p.OnResetItem();
+                    try
+                    {
+                        p.OnResetItem();
+                    }
+                    catch (NullReferenceException e) //Items haven't initialized
+                    {
+                    }
                 }
             }
         }

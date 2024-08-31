@@ -123,7 +123,7 @@ public class statecontrol : MonoBehaviour
 
     private void Update()
     {
-        if (!depremStart && earthquake.isShakeStart)
+        if (!depremStart && earthquake.isEarthquakeDone)
         {
             print("Masayanı script Check answers started");
             check();
@@ -195,8 +195,7 @@ public class statecontrol : MonoBehaviour
             PlayerPrefs.SetInt("pencereDone", 1);
             print("Pencere");
             x = "pencere";
-        }
-        if (other.gameObject.CompareTag("exit"))
+        } if (other.gameObject.CompareTag("exit"))
         {
             // exitreyanıTXT.color = Color.grey;
             // PlayerPrefs.SetString("ExitreyanıTXTColor", ColorToString(exitreyanıTXT.color));
