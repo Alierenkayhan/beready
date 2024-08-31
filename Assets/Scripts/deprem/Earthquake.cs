@@ -13,6 +13,7 @@ public class Earthquake : MonoBehaviour
     public float shakeSpeed = 5f;  // Titreme hızı
     public float startTime = 15f;  // Titreme hızı
     public bool isShakeStart = false;
+    public bool isEarthquakeDone = false;
     public resetCurrentLvl manager;
     public AlertController2 alert2;
     public TMP_Text text;
@@ -28,6 +29,7 @@ public class Earthquake : MonoBehaviour
         {
             Invoke("StartEarthquake", startTime);
             isShakeStart = false;
+            isEarthquakeDone = false;
             text.text = "Yeniden başlamak için R ye basın";
         }
     }
@@ -46,6 +48,7 @@ public class Earthquake : MonoBehaviour
         PlayerPrefs.Save();
         startTime = Time.time;
         isShakeStart = true;
+        isEarthquakeDone = false;
         InvokeRepeating("ShakeObjects", 0f, 0.1f); 
         Invoke("StopEarthquake", duration);
     }
@@ -53,6 +56,7 @@ public class Earthquake : MonoBehaviour
     public void StopEarthquake()
     {
         CancelInvoke("ShakeObjects");
+        isEarthquakeDone = true;
     }
 
     private void Update()

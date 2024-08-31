@@ -2525,10 +2525,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   magnitude: 2.5
-  duration: 60
+  duration: 7.5
   shakeSpeed: 5
   startTime: 10
   isShakeStart: 0
+  isEarthquakeDone: 0
   manager: {fileID: 2040884421}
   alert2: {fileID: 8308530}
   text: {fileID: 752455899}
