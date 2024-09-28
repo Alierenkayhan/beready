@@ -28,8 +28,8 @@ public class Earthquake : MonoBehaviour
         if (PlayerPrefs.GetString("OngoingEarthquake") == "true")
         {
             Invoke("StartEarthquake", startTime);
-            isShakeStart = false;
             isEarthquakeDone = false;
+            isShakeStart = false;
             text.text = "Yeniden başlamak için R ye basın";
         }
     }
@@ -43,17 +43,17 @@ public class Earthquake : MonoBehaviour
         manager.ResetLevel();
     }
 
-    public void StartEarthquake()
+    void StartEarthquake()
     {
         PlayerPrefs.Save();
         startTime = Time.time;
         isShakeStart = true;
         isEarthquakeDone = false;
-        InvokeRepeating("ShakeObjects", 0f, 0.1f); 
+        InvokeRepeating("ShakeObjects", 0f, 0.1f);
         Invoke("StopEarthquake", duration);
     }
 
-    public void StopEarthquake()
+    void StopEarthquake()
     {
         CancelInvoke("ShakeObjects");
         isEarthquakeDone = true;
@@ -61,7 +61,7 @@ public class Earthquake : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E) && PlayerPrefs.GetString("OngoingEarthquake") == "false")
+        if (PlayerPrefs.GetString("OngoingEarthquake") == "false")
         {
             alert2.gameObject.SetActive(true);
             Invoke(nameof(DoEarthquake), 5f);
@@ -70,7 +70,7 @@ public class Earthquake : MonoBehaviour
 
     void ShakeObjects()
     {
-        GameObject[] objectsToShake = GameObject.FindGameObjectsWithTag("Shakable"); 
+        GameObject[] objectsToShake = GameObject.FindGameObjectsWithTag("Shakable");
 
         foreach (GameObject obj in objectsToShake)
         {
