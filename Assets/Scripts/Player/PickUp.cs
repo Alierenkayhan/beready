@@ -12,50 +12,48 @@ public class PickUp : MonoBehaviour
     private Vector3 initialPosition;
     private Quaternion initialRotation;
     private string[] droppedObjectNames;
-    private Transform parent;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
-        parent = transform.parent;
         initialPosition = transform.position;
         initialRotation = transform.rotation;
 
         CheckAndSetActive();
     }
 
-    // private void OnMouseDown()
-    // {
-    //     isDragging = true;
-    // }
-    //
-    // private void OnMouseUp()
-    // {
-    //     if (isDragging)
-    //     {
-    //         isDragging = false;
-    //     }
-    // }
-    //
-    // private void Update()
-    // {
-    //     if (isDragging)
-    //     {
-    //         DragObject();
-    //     }
-    // }
-    //
-    // private void DragObject()
-    // {
-    //     Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-    //     RaycastHit hit;
-    //
-    //     if (Physics.Raycast(ray, out hit))
-    //     {
-    //         Vector3 targetPosition = new Vector3(hit.point.x, hit.point.y, hit.point.z);
-    //         rb.MovePosition(Vector3.Lerp(rb.position, targetPosition, Time.deltaTime * 10f));
-    //     }
-    // }
+    private void OnMouseDown()
+    {
+        isDragging = true;
+    }
+
+    private void OnMouseUp()
+    {
+        if (isDragging)
+        {
+            isDragging = false;
+        }
+    }
+
+    private void Update()
+    {
+        if (isDragging)
+        {
+            DragObject();
+        }
+    }
+
+    private void DragObject()
+    {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+
+        if (Physics.Raycast(ray, out hit))
+        {
+            Vector3 targetPosition = new Vector3(hit.point.x, hit.point.y, hit.point.z);
+            rb.MovePosition(Vector3.Lerp(rb.position, targetPosition, Time.deltaTime * 10f));
+        }
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -86,8 +84,7 @@ public class PickUp : MonoBehaviour
                 PlayerPrefs.SetString("RevisedObjects", string.Join(",", y));
             }
             PlayerPrefs.Save();
-            gameObject.transform.SetParent(parent);
-            gameObject.SetActive(false);
+            this.gameObject.SetActive(false);
         }
         else
         {

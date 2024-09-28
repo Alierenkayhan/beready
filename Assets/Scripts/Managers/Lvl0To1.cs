@@ -9,12 +9,26 @@ public class Lvl0To1 : MonoBehaviour
     public AlertController controller;
     public resetPickedItems p;
     public UnityEvent itemResetEvent;
-    
+    public GameObject personFoto;
+
     private void OnTriggerEnter(Collider other)
     {
+        
+
         if (other.CompareTag("NextLevel"))
         {
-            SceneManager.LoadScene("Level 1");
+            personFoto.SetActive(false);
+            string contact_secondTime = PlayerPrefs.GetString("SecondTime");
+
+            if (contact_secondTime == "true")
+            {
+                PlayerPrefs.SetString("SecondTimes", "false");
+                SceneManager.LoadScene("Level 2");
+            }
+            else
+            {
+                SceneManager.LoadScene("Level 1");
+            }
         } else if (other.name == "SifirlaTrigger")
         {
             if (itemResetEvent == null)
@@ -24,12 +38,15 @@ public class Lvl0To1 : MonoBehaviour
             itemResetEvent.RemoveAllListeners();
             itemResetEvent.AddListener(p.Reset);
             controller.alert("Sıfırla", "Eşyalar sıfırlanacak. Kabul ediyor musunuz?", "Sıfırla", "İptal", itemResetEvent);
+            personFoto.SetActive(false);
         } else if (other.name == "IletisimTrigger")
         {
             var x = new UnityEvent();
             x.RemoveAllListeners();
             x.AddListener(AddContactPerson);
-            controller.alert("İletişim", "Tanıdıkların arasında ortak bir iletişim kişisi belirleyeceksin. Acil durum anında, bu kişi herkesin durumundan haberdar olacak ve gereken koordinasyonu sağlayacak.", "Tamam", dismissCallbackAction:x);
+            personFoto.SetActive(true);
+            controller.alert("Acil Durumda Aranılacak Kişi", "Adı = İlyas\nYakınlık = Baba\nTelefon = (507) 654-3210", "Tamam");
+            PlayerPrefs.SetString("ContactPerson", "true");
         }
     }
 
