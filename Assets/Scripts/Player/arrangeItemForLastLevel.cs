@@ -12,32 +12,24 @@ public class arrangeItemForLastLevel : MonoBehaviour
     }
     void CheckDroppedObjectName()
     {
-        if (PlayerPrefs.HasKey("DroppedObjectNames"))
+        string droppedObjectName = PlayerPrefs.GetString("DroppedObjectNames");
+ 
+        if (!string.IsNullOrEmpty(droppedObjectName))
         {
-            string droppedObjectName = PlayerPrefs.GetString("DroppedObjectNames");
+            Debug.Log("Dropped Object Name: " + droppedObjectName);
+            string[] droppedObjectNamesArray = droppedObjectName.Split(',');
 
-            if (!string.IsNullOrEmpty(droppedObjectName))
+            foreach (var item in firstkiditems)
             {
-                Debug.Log("Dropped Object Name: " + droppedObjectName);
-                string[] droppedObjectNamesArray = droppedObjectName.Split(',');
-
-                foreach (var item in firstkiditems)
+                if (!droppedObjectNamesArray.Contains(item.name))
                 {
-                    if (!droppedObjectNamesArray.Contains(item.name))
-                    {
-                        item.SetActive(false);
-                    }
+                    item.SetActive(false);
+                }
+                else
+                {
+                    item.SetActive(true);
                 }
             }
-            else
-            {
-                Debug.Log("Dropped Object Name PlayerPrefs'te kayıtlı değil veya boş.");
-            }
-        }
-        else
-        {
-            Debug.Log("Dropped Object Name PlayerPrefs'te kayıtlı değil.");
-        }
+        }      
     }
- 
 }

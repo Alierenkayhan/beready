@@ -1,11 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UI;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
-using System.Linq;
+using static UnityEditor.Progress;
 
 public class needUI : MonoBehaviour
 {
@@ -22,26 +23,76 @@ public class needUI : MonoBehaviour
     public GameObject fare;
 
     public GameObject itemsObject;
-
+    public GameObject[] firstkiditems;
     public AlertController alert;
+    // Start is called before the first frame update
 
-    private string[] required = { "Pil", "Su", "Telsiz", "İlaç", "Kibrit", "Fener", "Konserve", "Oyuncak", "Bant" };
+    private string[] required = { "Pil", "Su", "Telsiz", "Bant", "İlaç", "Kibrit", "Fener", "Konserve", "Oyuncak" };
 
-    public List<string> items = new List<string>();
+    private List<string> items = new List<string>();
 
     void Start()
     {
+        CheckDroppedObjectName();
         end.SetActive(false);
         text.text = "İhtiyacın olanlar:\n\n" + string.Join(", ", required);
         items.AddRange(required);
         fare.SetActive(true);
+        // Invoke("Yazdir", 7f);
+    }
+
+    // void Yazdir()
+    // {
+    //     if (currentIndex < liste.Count)
+    //     {
+    //         // textEkraniGameObject.SetActive(true);
+    //         string item = liste[currentIndex];
+    //         // textEkrani.text = item + " ihtiyacın var.";
+    //
+    //         items.Remove(item);
+    //
+    //         if (currentIndex >= liste.Count)
+    //         {
+    //             currentIndex = 0;
+    //         }
+    //     }
+    //     else
+    //     {
+    //         textEkraniGameObject.SetActive(false);
+    //         end.SetActive(true);
+    //     }
+    //
+    // }
+
+    void CheckDroppedObjectName()
+    {
+        string droppedObjectName = PlayerPrefs.GetString("DroppedObjectNames");
+         
+        if (!string.IsNullOrEmpty(droppedObjectName))
+        {
+           
+            string[] droppedObjectNamesArray = droppedObjectName.Split(',');
+
+            foreach (var item in firstkiditems)
+            {
+                if (!droppedObjectNamesArray.Contains(item.name))
+                {
+                    item.SetActive(false);
+                }
+                else
+                {
+                    item.SetActive(true);
+                }
+            }
+        }
     }
 
     void Update()
     {
-        string droppedObjectName = PlayerPrefs.GetString("DroppedObjectNames");
         string contact_person_check = PlayerPrefs.GetString("ContactPerson");
-        Debug.Log("contact_person_check " + contact_person_check);
+        string droppedObjectName = PlayerPrefs.GetString("DroppedObjectNames");
+    
+     
 
         string[] droppedObjectNamesArray = new string[0];
 
@@ -50,55 +101,74 @@ public class needUI : MonoBehaviour
             droppedObjectNamesArray = droppedObjectName.Split(',');
         }
 
-        if (IsAllItemsPicked())
+
+
+        if (Input.GetMouseButtonDown(0))
         {
-            bool hasExtraItems = false;
-            bool hasAllRequiredItems = true;
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
 
-            foreach (string item in droppedObjectNamesArray)
+            if (Physics.Raycast(ray, out hit))
             {
-                if (!required.Contains(item))
+                if (hit.collider.gameObject.CompareTag("firstaidkit"))
                 {
-                    hasExtraItems = true;
-                    break;
+                    hit.collider.gameObject.SetActive(false);
+
+                    items.Remove(hit.collider.gameObject.name);
+                    text.text = "İhtiyacın olanlar:\n\n" + string.Join(", ", items);
                 }
             }
 
-            foreach (string item in required)
+     
+            if (IsAllItemsPicked())
             {
-                if (!droppedObjectNamesArray.Contains(item))
+                bool hasExtraItems = false;
+                bool hasAllRequiredItems = true;
+   
+                foreach (string item in droppedObjectNamesArray)
                 {
-                    hasAllRequiredItems = false;
-                    break;
+                    if (!required.Contains(item))
+                    {
+                        hasExtraItems = true;
+                        break;
+                    }
                 }
-            }
 
-            if (hasExtraItems || !hasAllRequiredItems)
-            {
-                var n = new UnityEvent();
-                n.RemoveAllListeners();
-                n.AddListener(SwapToLevel0);
-                alert.alert("Deprem çantası", "Deprem çantanda eksik veya gereksiz eşyalar var. Geri dönüp gözden geçirmelisin.", "Tamam", dismissCallbackAction: n);
-            }
-            else
-            {
-                if (contact_person_check == "true")
+                foreach (string item in required)
                 {
-                    var n = new UnityEvent();
-                    alert.alert("Deprem Eğitimi", "Tebrikler deprem eğitimini başarılı bir şekilde tamamladın", "Tamam", "", n);
+                    if (!droppedObjectNamesArray.Contains(item))
+                    {
+                        hasAllRequiredItems = false;
+                        break;
+                    }
                 }
-                else
+                Debug.Log(hasExtraItems);
+                Debug.Log( hasAllRequiredItems );
+                Debug.Log( contact_person_check);
+                if (hasExtraItems || !hasAllRequiredItems)
                 {
                     var n = new UnityEvent();
                     n.RemoveAllListeners();
                     n.AddListener(SwapToLevel0);
-                    alert.alert("Deprem çantası", "Deprem çantanda depremden sonra iletişim kurman gereken kişinin bilgileri yok", "Tamam", dismissCallbackAction: n);
+                    alert.alert("Deprem çantası", "Deprem çantanda eksik veya gereksiz eşyalar var. Geri dönüp gözden geçirmelisin.", "Tamam", dismissCallbackAction: n);
+                }
+                else
+                {
+                    if (contact_person_check == "true")
+                    {
+                        var n = new UnityEvent();
+                        alert.alert("Deprem Eğitimi", "Tebrikler deprem eğitimini başarılı bir şekilde tamamladın", "Tamam", dismissCallbackAction: n);
+                    }
+                    else
+                    {
+                        var n = new UnityEvent();
+                        n.RemoveAllListeners();
+                        n.AddListener(SwapToLevel0);
+                        alert.alert("Deprem çantası", "Deprem çantanda depremden sonra iletişim kurman gereken kişinin bilgileri yok", "Tamam", dismissCallbackAction: n);
+                    }
                 }
             }
-        }
-        else
-        {
-            text.text = "İhtiyacın olanlar:\n\n" + string.Join(", ", items);
+             
         }
     }
 
@@ -114,14 +184,14 @@ public class needUI : MonoBehaviour
 
     private bool IsAllItemsPicked()
     {
+         
         foreach (Transform tf in itemsObject.transform)
         {
             if (tf.gameObject.activeSelf)
-            {
+            { 
                 return false;
             }
         }
-
         return true;
     }
 }

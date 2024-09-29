@@ -68,7 +68,7 @@ public class PickUp : MonoBehaviour
             {
                 droppedObjectNames = new string[0];
             }
-
+        
             Array.Resize(ref droppedObjectNames, droppedObjectNames.Length + 1);
             droppedObjectNames[droppedObjectNames.Length - 1] = this.gameObject.name;
 

@@ -13,17 +13,14 @@ public class Lvl0To1 : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        
-
         if (other.CompareTag("NextLevel"))
         {
             personFoto.SetActive(false);
-            string contact_secondTime = PlayerPrefs.GetString("SecondTime");
-
+            string contact_secondTime = PlayerPrefs.GetString("Revision");
             if (contact_secondTime == "true")
             {
-                PlayerPrefs.SetString("SecondTimes", "false");
                 SceneManager.LoadScene("Level 2");
+                PlayerPrefs.SetString("Revision", "false");         
             }
             else
             {
