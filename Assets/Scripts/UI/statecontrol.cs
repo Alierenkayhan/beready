@@ -124,7 +124,7 @@ public class statecontrol : MonoBehaviour
 
     private void Update()
     {
-        if (!depremStart && earthquake.isEarthquakeDone)
+        if (!depremStart && earthquake.isShakeStart)
         {
             print("Masayanı script Check answers started");
 
