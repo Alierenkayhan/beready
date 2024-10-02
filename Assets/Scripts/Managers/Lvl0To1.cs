@@ -15,6 +15,8 @@ public class Lvl0To1 : MonoBehaviour
         if (other.CompareTag("NextLevel"))
         {
             SceneManager.LoadScene("Level 1");
+            PlayerPrefs.SetInt("ShowWarning", 0);
+            PlayerPrefs.Save();
         } else if (other.name == "SifirlaTrigger")
         {
             if (itemResetEvent == null)

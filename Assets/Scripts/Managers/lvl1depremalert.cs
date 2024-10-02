@@ -13,7 +13,7 @@ public class lvl1depremalert : MonoBehaviour
     {
         string currentSceneName = SceneManager.GetActiveScene().name;
 
-        if (currentSceneName == "Level 1")
+        if (currentSceneName == "Level 1" && PlayerPrefs.GetInt("ShowWarning") == 0)
         {
             Invoke("AlertShow", 4f);
         }
@@ -21,6 +21,12 @@ public class lvl1depremalert : MonoBehaviour
 
     void AlertShow()
     {
+        if (PlayerPrefs.GetInt("ShowWarning") == 1)
+        {
+            return;
+        }
+        PlayerPrefs.SetInt("ShowWarning", 1);
+        PlayerPrefs.Save();
         alert.alert("Deprem Uyarısı",
             "Bir süre sonra deprem başlayacak. Konumunuzu seçiminize göre belirleyin.",
             "Tamam");

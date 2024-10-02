@@ -12,6 +12,8 @@ public class Menu : MonoBehaviour
     }
     public void startGame()
     {
+        PlayerPrefs.SetInt("ShowWarning", 0);
+        PlayerPrefs.Save();
         SceneManager.LoadScene("Level 0");
     }
 }
