@@ -11,20 +11,21 @@ public class televizyonayansıtmalvl0 : MonoBehaviour
     public TMP_Text televizyonTxt;
     private string previous = "";
     private bool revision = false;
-    
-    
-    private string[] required = {"Pil", "Su", "Telsiz", "İlaç", "Kibrit", "Fener", "Konserve", "Oyuncak"};
 
-    private List<string> items = new() {"Pil", "Su", "Telsiz", "İlaç", "Kibrit", "Fener", "Konserve", "Oyuncak"};
+    // Your required items and list of items
+    private string[] required = { "Pil", "Su", "Telsiz", "İlaç", "Kibrit", "Fener", "Konserve", "Oyuncak" };
+    private List<string> items = new() { "Pil", "Su", "Telsiz", "İlaç", "Kibrit", "Fener", "Konserve", "Oyuncak" };
+
+    // List of GameObjects corresponding to the items
+    public List<GameObject> itemGameObjects = new List<GameObject>();
 
     private void Start()
     {
+        // PlayerPrefs initialization
         if (!PlayerPrefs.HasKey("Revision"))
         {
             PlayerPrefs.SetString("Revision", "false");
-            
             PlayerPrefs.SetString("RevisedObjects", "");
-            
             PlayerPrefs.DeleteKey("DroppedObjectNames");
             PlayerPrefs.Save();
         }
@@ -34,16 +35,16 @@ public class televizyonayansıtmalvl0 : MonoBehaviour
             revision = true;
             informationTxt.gameObject.SetActive(false);
             print("Revision true");
-        } else if (PlayerPrefs.GetString("Revision") == "false")
+        }
+        else if (PlayerPrefs.GetString("Revision") == "false")
         {
             revision = false;
             informationTxt.gameObject.SetActive(true);
             print("Revision false");
         }
-        
+
         print(PlayerPrefs.GetString("RevisedObjects"));
         print(string.Join(",", items));
-        
     }
 
     void Update()
@@ -61,6 +62,7 @@ public class televizyonayansıtmalvl0 : MonoBehaviour
                         Debug.Log("Dropped Object Name: " + droppedObjectName);
                         previous = droppedObjectName;
                     }
+
                     string[] droppedObjectNamesArray = droppedObjectName.Split(',');
 
                     televizyonTxt.text = "";
@@ -68,8 +70,19 @@ public class televizyonayansıtmalvl0 : MonoBehaviour
                     foreach (var item in droppedObjectNamesArray)
                     {
                         televizyonTxt.text += item + ", ";
+
+                        // Activate the corresponding GameObject if its name matches with the dropped object name
+                        foreach (var obj in itemGameObjects)
+                        {
+                            if (obj.name.Equals(item, StringComparison.OrdinalIgnoreCase))
+                            {
+                                obj.SetActive(true); // Activate the GameObject if it matches
+                            }
+                        }
                     }
-                } else {
+                }
+                else
+                {
                     televizyonTxt.text = "";
                 }
             }
@@ -84,6 +97,7 @@ public class televizyonayansıtmalvl0 : MonoBehaviour
             {
                 items.Remove(x);
             }
+
             televizyonTxt.text = "Gereken Eşyalar:\n\n" + string.Join(", ", items);
 
             if (items.Count <= 0)
@@ -96,9 +110,9 @@ public class televizyonayansıtmalvl0 : MonoBehaviour
                         return;
                     }
                 }
+
                 televizyonTxt.text = "İletişim kişisi tanımlamalısınız.";
             }
         }
-        
     }
 }

@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;  // UI için
+using TMPro;  // TextMeshPro için
 
 public class PickUp : MonoBehaviour
 {
@@ -12,6 +14,10 @@ public class PickUp : MonoBehaviour
     private Vector3 initialPosition;
     private Quaternion initialRotation;
     private string[] droppedObjectNames;
+
+    // Text veya TextMeshPro referansı
+    public TextMeshProUGUI objectNameText;  // TextMeshPro kullanıyorsanız
+    // public Text objectNameText;  // UI Text kullanıyorsanız
 
     private void Start()
     {
@@ -25,6 +31,12 @@ public class PickUp : MonoBehaviour
     private void OnMouseDown()
     {
         isDragging = true;
+
+        // Seçim anında ismin rengini değiştir
+        if (objectNameText != null)
+        {
+            objectNameText.color = Color.red;  // İstediğiniz rengi belirleyebilirsiniz
+        }
     }
 
     private void OnMouseUp()
@@ -32,6 +44,12 @@ public class PickUp : MonoBehaviour
         if (isDragging)
         {
             isDragging = false;
+
+            // Seçim bittiğinde ismi eski rengine döndür
+            if (objectNameText != null)
+            {
+                objectNameText.color = Color.white;  // Orijinal renk
+            }
         }
     }
 
@@ -68,7 +86,7 @@ public class PickUp : MonoBehaviour
             {
                 droppedObjectNames = new string[0];
             }
-        
+
             Array.Resize(ref droppedObjectNames, droppedObjectNames.Length + 1);
             droppedObjectNames[droppedObjectNames.Length - 1] = this.gameObject.name;
 
