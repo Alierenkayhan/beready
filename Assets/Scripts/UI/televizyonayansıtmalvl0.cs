@@ -49,9 +49,6 @@ public class televizyonayansıtmalvl0 : MonoBehaviour
 
     void Update()
     {
-        if (PlayerPrefs.GetString("Revision") == "false")
-        {
-           
             if (PlayerPrefs.HasKey("DroppedObjectNames"))
             {
                 string droppedObjectName = PlayerPrefs.GetString("DroppedObjectNames");
@@ -91,9 +88,9 @@ public class televizyonayansıtmalvl0 : MonoBehaviour
             {
                 televizyonTxt.text = "";
             }
-        }
-        else
+         if (PlayerPrefs.GetString("Revision") == "true")
         {
+
      
             foreach (var x in PlayerPrefs.GetString("RevisedObjects").Split(","))
             {

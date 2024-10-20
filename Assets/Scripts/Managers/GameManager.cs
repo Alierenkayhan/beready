@@ -97,7 +97,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         string droppedObjectName = PlayerPrefs.GetString("DroppedObjectNames");
-        Debug.Log(droppedObjectName);
+        print(droppedObjectName);
         if (!skipRBProcessing) ReloadSceneRigidbodies();
 
         localPlayer = GetAllSceneGameObjectsByName("Player", 0, false)[0].GetComponent<FirstPersonController>();

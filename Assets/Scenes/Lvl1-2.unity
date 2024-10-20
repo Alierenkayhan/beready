@@ -3327,7 +3327,6 @@ GameObject:
   - component: {fileID: 912265766}
   - component: {fileID: 912265765}
   - component: {fileID: 912265764}
-  - component: {fileID: 912265763}
   - component: {fileID: 912265762}
   m_Layer: 5
   m_Name: Form
@@ -3355,18 +3354,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RaycastTriggerInteraction: 1
---- !u!114 &912265763
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 912265761}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2c9caa7575d96624eb9c3a89d1b58bd1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &912265764
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -150,6 +150,7 @@ public class needUI : MonoBehaviour
 
     public void SwapToLevel0()
     {
+        print("burada");
         PlayerPrefs.SetString("Revision", "true");
         PlayerPrefs.DeleteKey("DroppedObjectNames");
         PlayerPrefs.DeleteKey("ContactPerson");
