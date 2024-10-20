@@ -20,6 +20,7 @@ public class Earthquake : MonoBehaviour
 
     void Start()
     {
+        Debug.Log(PlayerPrefs.GetString("OngoingEarthquake"));
         if (!PlayerPrefs.HasKey("OngoingEarthquake"))
         {
             PlayerPrefs.SetString("OngoingEarthquake", "false");

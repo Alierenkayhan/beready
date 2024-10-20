@@ -27,4 +27,15 @@ public class resetlvl : MonoBehaviour
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
+    public void Reset()
+    {
+        PlayerPrefs.DeleteAll();
+
+        // Leveli sıfırla (istersek 1 olarak ayarlayabiliriz)
+        PlayerPrefs.SetInt("CurrentLevel", 1);
+
+        PlayerPrefs.Save();
+
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
 }

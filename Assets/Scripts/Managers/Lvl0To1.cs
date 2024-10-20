@@ -7,7 +7,7 @@ using UnityEngine.Serialization;
 public class Lvl0To1 : MonoBehaviour
 {
     public AlertController controller;
-    public resetPickedItems p;
+    public resetlvl rstLvl;
     public UnityEvent itemResetEvent;
     public GameObject personFoto;
 
@@ -33,7 +33,7 @@ public class Lvl0To1 : MonoBehaviour
                 itemResetEvent = new UnityEvent();
             }
             itemResetEvent.RemoveAllListeners();
-            itemResetEvent.AddListener(p.Reset);
+            itemResetEvent.AddListener(rstLvl.Reset);
             controller.alert("Sıfırla", "Eşyalar sıfırlanacak. Kabul ediyor musunuz?", "Sıfırla", "İptal", itemResetEvent);
             personFoto.SetActive(false);
         } else if (other.name == "IletisimTrigger")

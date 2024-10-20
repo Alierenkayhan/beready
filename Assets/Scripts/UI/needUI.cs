@@ -6,11 +6,9 @@ using UI;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
-using static UnityEditor.Progress;
 
 public class needUI : MonoBehaviour
 {
-
     public TMP_Text textEkrani;
     public GameObject textEkraniGameObject;
     public GameObject end;
@@ -25,10 +23,11 @@ public class needUI : MonoBehaviour
     public GameObject itemsObject;
     public GameObject[] firstkiditems;
     public AlertController alert;
-    // Start is called before the first frame update
+
+    // New list to store item GameObjects
+    public List<GameObject> itemGameObjects;
 
     private string[] required = { "Pil", "Su", "Telsiz", "Bant", "İlaç", "Kibrit", "Fener", "Konserve", "Oyuncak" };
-
     private List<string> items = new List<string>();
 
     void Start()
@@ -38,50 +37,27 @@ public class needUI : MonoBehaviour
         text.text = "İhtiyacın olanlar:\n\n" + string.Join(", ", required);
         items.AddRange(required);
         fare.SetActive(true);
-        // Invoke("Yazdir", 7f);
     }
 
-    // void Yazdir()
-    // {
-    //     if (currentIndex < liste.Count)
-    //     {
-    //         // textEkraniGameObject.SetActive(true);
-    //         string item = liste[currentIndex];
-    //         // textEkrani.text = item + " ihtiyacın var.";
-    //
-    //         items.Remove(item);
-    //
-    //         if (currentIndex >= liste.Count)
-    //         {
-    //             currentIndex = 0;
-    //         }
-    //     }
-    //     else
-    //     {
-    //         textEkraniGameObject.SetActive(false);
-    //         end.SetActive(true);
-    //     }
-    //
-    // }
-
+    // Check dropped object name and activate matching GameObjects
     void CheckDroppedObjectName()
     {
         string droppedObjectName = PlayerPrefs.GetString("DroppedObjectNames");
-         
+
         if (!string.IsNullOrEmpty(droppedObjectName))
         {
-           
             string[] droppedObjectNamesArray = droppedObjectName.Split(',');
 
-            foreach (var item in firstkiditems)
+            foreach (var item in itemGameObjects)
             {
-                if (!droppedObjectNamesArray.Contains(item.name))
+                // Activate or deactivate the GameObjects based on whether they are in droppedObjectNamesArray
+                if (droppedObjectNamesArray.Contains(item.name))
                 {
-                    item.SetActive(false);
+                    item.SetActive(true);  // Activate matching GameObject
                 }
                 else
                 {
-                    item.SetActive(true);
+                    item.SetActive(false);  // Deactivate non-matching GameObject
                 }
             }
         }
@@ -91,8 +67,6 @@ public class needUI : MonoBehaviour
     {
         string contact_person_check = PlayerPrefs.GetString("ContactPerson");
         string droppedObjectName = PlayerPrefs.GetString("DroppedObjectNames");
-    
-     
 
         string[] droppedObjectNamesArray = new string[0];
 
@@ -100,8 +74,6 @@ public class needUI : MonoBehaviour
         {
             droppedObjectNamesArray = droppedObjectName.Split(',');
         }
-
-
 
         if (Input.GetMouseButtonDown(0))
         {
@@ -119,12 +91,11 @@ public class needUI : MonoBehaviour
                 }
             }
 
-     
             if (IsAllItemsPicked())
             {
                 bool hasExtraItems = false;
                 bool hasAllRequiredItems = true;
-   
+
                 foreach (string item in droppedObjectNamesArray)
                 {
                     if (!required.Contains(item))
@@ -142,9 +113,7 @@ public class needUI : MonoBehaviour
                         break;
                     }
                 }
-                Debug.Log(hasExtraItems);
-                Debug.Log( hasAllRequiredItems );
-                Debug.Log( contact_person_check);
+
                 if (hasExtraItems || !hasAllRequiredItems)
                 {
                     var n = new UnityEvent();
@@ -168,7 +137,6 @@ public class needUI : MonoBehaviour
                     }
                 }
             }
-             
         }
     }
 
@@ -184,11 +152,10 @@ public class needUI : MonoBehaviour
 
     private bool IsAllItemsPicked()
     {
-         
         foreach (Transform tf in itemsObject.transform)
         {
             if (tf.gameObject.activeSelf)
-            { 
+            {
                 return false;
             }
         }
