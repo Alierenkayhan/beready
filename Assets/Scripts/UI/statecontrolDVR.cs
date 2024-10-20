@@ -165,7 +165,7 @@ public class statecontrolDVR : MonoBehaviour
     public string EvaluateAnswer()
     {
         string x = "";
-        if (other == null  || other.name == "OldugunYer")
+        if (other.name == "OldugunYer")
         {
             print("stay");
             x = "stay";
@@ -199,7 +199,7 @@ public class statecontrolDVR : MonoBehaviour
             print("Pencere");
             x = "pencere";
         }
-        if (other.gameObject.CompareTag("exit"))
+        if (other.gameObject.CompareTag("exit") || other.gameObject.CompareTag("Door"))
         {
             // exitreyanıTXT.color = Color.grey;
             // PlayerPrefs.SetString("ExitreyanıTXTColor", ColorToString(exitreyanıTXT.color));
