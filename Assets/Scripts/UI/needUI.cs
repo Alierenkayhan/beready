@@ -43,12 +43,12 @@ public class needUI : MonoBehaviour
     void CheckDroppedObjectName()
     {
         string droppedObjectName = PlayerPrefs.GetString("DroppedObjectNames");
-
+        
         if (!string.IsNullOrEmpty(droppedObjectName))
         {
             string[] droppedObjectNamesArray = droppedObjectName.Split(',');
 
-            foreach (var item in itemGameObjects)
+            foreach (var item in firstkiditems)
             {
                 // Activate or deactivate the GameObjects based on whether they are in droppedObjectNamesArray
                 if (droppedObjectNamesArray.Contains(item.name))
@@ -59,6 +59,14 @@ public class needUI : MonoBehaviour
                 {
                     item.SetActive(false);  // Deactivate non-matching GameObject
                 }
+            }
+        }
+        else
+        {
+            // If droppedObjectName is empty or not found, deactivate all items
+            foreach (var item in firstkiditems)
+            {
+                item.SetActive(false);
             }
         }
     }

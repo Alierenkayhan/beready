@@ -509,7 +509,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4a84d46112c28941b77e79f9bd5ec48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  zoomSpeed: 2
   objectNameText: {fileID: 116056957}
 --- !u!65 &343737406
 BoxCollider:
@@ -1226,6 +1225,11 @@ PrefabInstance:
       propertyPath: fare
       value: 
       objectReference: {fileID: 1360495458}
+    - target: {fileID: 4760992938245665475, guid: e01ace1fbb22670409c136df69dfee39, type: 3}
+      propertyPath: bodys
+      value: "W,A,S,D tu\u015Flar\u0131 veya y\xF6n tu\u015Flar\u0131 ile hareket
+        edebilir ve mouse ile etrafa bakabilirsiniz. Sol kontrol tu\u015Fu ile e\u011Filebilirsiniz."
+      objectReference: {fileID: 0}
     - target: {fileID: 4760992938245665479, guid: e01ace1fbb22670409c136df69dfee39, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -2013,7 +2017,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4a84d46112c28941b77e79f9bd5ec48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  zoomSpeed: 2
   objectNameText: {fileID: 1151892171}
 --- !u!65 &1169966572
 BoxCollider:
@@ -2455,7 +2458,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4a84d46112c28941b77e79f9bd5ec48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  zoomSpeed: 2
   objectNameText: {fileID: 775561893}
 --- !u!54 &1309128261
 Rigidbody:
@@ -3427,7 +3429,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4a84d46112c28941b77e79f9bd5ec48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  zoomSpeed: 2
   objectNameText: {fileID: 92895023}
 --- !u!54 &2041168067
 Rigidbody:

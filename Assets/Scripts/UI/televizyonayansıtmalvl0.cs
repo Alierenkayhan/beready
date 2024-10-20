@@ -51,6 +51,7 @@ public class televizyonayansıtmalvl0 : MonoBehaviour
     {
         if (PlayerPrefs.GetString("Revision") == "false")
         {
+           
             if (PlayerPrefs.HasKey("DroppedObjectNames"))
             {
                 string droppedObjectName = PlayerPrefs.GetString("DroppedObjectNames");
@@ -93,25 +94,23 @@ public class televizyonayansıtmalvl0 : MonoBehaviour
         }
         else
         {
+     
             foreach (var x in PlayerPrefs.GetString("RevisedObjects").Split(","))
             {
                 items.Remove(x);
             }
-
+             
             televizyonTxt.text = "Gereken Eşyalar:\n\n" + string.Join(", ", items);
-
             if (items.Count <= 0)
             {
                 if (PlayerPrefs.HasKey("ContactPerson"))
                 {
-                    if (PlayerPrefs.GetInt("ContactPerson", 0) == 1)
-                    {
-                        televizyonTxt.text = "Tebrikler, eğitimi tamamladınız!";
-                        return;
-                    }
+                    televizyonTxt.text = "Son levele geri dönebilirsiniz. Lütfen kapıya doğru gidin.";
                 }
-
-                televizyonTxt.text = "İletişim kişisi tanımlamalısınız.";
+                else
+                {
+                    televizyonTxt.text = "İletişim kişisi tanımlamalısınız.";
+                }
             }
         }
     }
